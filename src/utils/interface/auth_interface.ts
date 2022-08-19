@@ -30,3 +30,14 @@ export interface LoginValues {
 export interface ActiveTokenData {
     activeToken: string
 }
+
+// user
+export interface InformationAccountData {
+    _id: string
+    fullname: string
+    username: string
+    detail: string
+    website: Array<string>
+    avatar: string
+    email: string
+}

@@ -1,7 +1,7 @@
 import { InputField, PasswordField } from '@/components/field_controls'
 import { LoginValues } from '@/utils/interface'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 
@@ -32,12 +32,16 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
 
     const handleSubmit = async (values: LoginValues) => {
         // console.log(values)
+        if (!onSubmit) return
         try {
             await onSubmit(values)
+            form.reset()
         } catch (error) {
             console.log(error)
         }
     }
+
+    console.log(form.formState.isSubmitting)
 
     return (
         <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -66,7 +70,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
                 Chưa có tài khoản?
                 <Link
                     to="/register"
-                    className="text-red-500 ml-1 hover:text-red-700 font-semibold ease-in-out duration-200"
+                    className="inline text-red-500 ml-1 hover:text-red-700 font-semibold ease-in-out duration-200"
                 >
                     Đăng ký ngay
                 </Link>

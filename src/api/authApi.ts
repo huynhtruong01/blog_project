@@ -14,9 +14,9 @@ export const authApi = {
         const url = '/auth/active'
         return axiosClient.post(url, data)
     },
-    logout(data: { _id: string }) {
+    logout() {
         const url = '/auth/logout'
-        return axiosClient.post(url, data)
+        return axiosClient.post(url)
     },
     refreshToken() {
         const url = '/auth/refresh-token'

@@ -67,6 +67,7 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
     const handleSubmit = async (values: RegisterValues) => {
         try {
             await onSubmit(values)
+            form.reset()
         } catch (error) {
             console.log(error)
         }

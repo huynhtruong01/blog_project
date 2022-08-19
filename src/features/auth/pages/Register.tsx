@@ -1,6 +1,5 @@
 import { authApi } from '@/api'
 import { RegisterValues } from '@/utils/interface'
-import * as React from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { RegisterForm } from '../components'
@@ -10,7 +9,8 @@ export interface RegisterProps {}
 export function Register(props: RegisterProps) {
     const handleRegister = async (values: RegisterValues) => {
         try {
-            await authApi.register(values)
+            const { confirmPassword, ...newValues } = values
+            await authApi.register(newValues)
 
             toast.success('Vui lòng kiểm tra email của bạn để đăng nhập vào trang', {
                 autoClose: 2000,

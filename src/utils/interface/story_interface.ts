@@ -11,4 +11,5 @@ export interface StoryData {
     description: string
     content: string
     urlSocial?: string
+    createdAt?: any
 }

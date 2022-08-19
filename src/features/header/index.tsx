@@ -20,10 +20,10 @@ export function Header(props: HeaderProps) {
     ]
 
     return (
-        <header className="w-full shadow-md fixed top-0 left-0 bg-white">
+        <header className="w-full shadow-md fixed top-0 left-0 bg-white z-50">
             <div className="w-[1100px] flex justify-between items-center px-2 py-3 m-auto">
                 <div>
-                    <Link to="/" className="font-bold text-blue-700 text-2xl">
+                    <Link to="/" className="font-bold text-blue-500 text-2xl">
                         H.Blog
                     </Link>
                 </div>
