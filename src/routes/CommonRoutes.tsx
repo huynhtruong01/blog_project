@@ -1,6 +1,6 @@
 import { Account } from '@/features/account'
 import { ActiveRegisterMail, Login, Register } from '@/features/auth/pages'
-import * as React from 'react'
+import { CreateBlog } from '@/features/create_blog'
 import { Route, Routes } from 'react-router-dom'
 
 export interface CommonRoutesProps {}
@@ -12,6 +12,7 @@ export function CommonRoutes(props: CommonRoutesProps) {
             <Route path="register" element={<Register />} />
             <Route path="active/:token" element={<ActiveRegisterMail />} />
             <Route path="account" element={<Account />} />
+            <Route path="create-blog" element={<CreateBlog />} />
         </Routes>
     )
 }

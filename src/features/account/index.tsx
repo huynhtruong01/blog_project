@@ -1,11 +1,18 @@
+import { LoadingSpinner } from '@/components/common'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { InformationAccount } from './components'
+import { useEffect } from 'react'
+import { BlogOwnList, InformationAccount } from './components'
 
 export interface AccountProps {}
 
 export function Account(props: AccountProps) {
     const queryClient = useQueryClient()
-    const { data }: any = useQuery(
+
+    useEffect(() => {
+        window.document.title = 'Thông tin của bạn | H.Blog'
+    }, [])
+
+    const { data, isLoading }: any = useQuery(
         ['users'],
         async () => {
             try {
@@ -32,11 +39,22 @@ export function Account(props: AccountProps) {
     }
 
     return (
-        <div className="flex">
-            <div className="basis-5/12">
-                <InformationAccount user={userInformationAccount} />
-            </div>
-            <div className="basic-7/12"></div>
-        </div>
+        <>
+            {isLoading && (
+                <div className="flex justify-center items-center">
+                    <LoadingSpinner />
+                </div>
+            )}
+            {data && (
+                <div className="flex max-w-5xl gap-6 m-auto px-4">
+                    <div className="w-[420px]">
+                        <InformationAccount user={userInformationAccount} />
+                    </div>
+                    <div className="relative flex-1">
+                        <BlogOwnList user={data?.user} />
+                    </div>
+                </div>
+            )}
+        </>
     )
 }

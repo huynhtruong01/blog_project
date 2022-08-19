@@ -90,7 +90,7 @@ export function InformationWebsite({
                         <p className="text-gray-400 mb-2">Trang web cá nhân</p>
                         <p>
                             {website.map((link) => (
-                                <div className="flex justify-between mb-2">
+                                <div className="flex justify-between items-center mb-2" key={link}>
                                     <a
                                         href={link}
                                         target="_blank"

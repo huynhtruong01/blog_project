@@ -12,6 +12,10 @@ export function StoryHome(props: StoryHomeProps) {
     const [searchParams, setSearchParams] = useSearchParams()
     console.log(location)
 
+    useEffect(() => {
+        window.document.title = 'Tỷ tỷ xứ Trung | H.Blog'
+    })
+
     const filters = useMemo(() => {
         const params: any = queryString.parse(location.search)
 
@@ -30,5 +34,5 @@ export function StoryHome(props: StoryHomeProps) {
         staleTime: 3 * 60 * 1000,
     })
 
-    return <div>{data.data && <StoryList storyList={data.data} />}</div>
+    return <div>{data?.data && <StoryList storyList={data.data} />}</div>
 }

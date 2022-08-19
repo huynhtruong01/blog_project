@@ -28,7 +28,7 @@ export function Modal({ open, setOpen, callback }: ModalProps) {
     })
 
     const handleRemoveWebsite = async () => {
-        console.log(callback)
+        // console.log(callback)
         if (!callback || !data?.values) return
 
         try {
@@ -47,6 +47,7 @@ export function Modal({ open, setOpen, callback }: ModalProps) {
             })
         }
     }
+
     return (
         <>
             {open && (

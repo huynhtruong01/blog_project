@@ -6,7 +6,7 @@ import { FaUser } from 'react-icons/fa'
 import { GoPlus } from 'react-icons/go'
 import { IoLogOut, IoLogOutSharp } from 'react-icons/io5'
 import { RiLogoutBoxRLine } from 'react-icons/ri'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export interface AuthHeaderProps {}
 
@@ -110,12 +110,14 @@ export function AuthHeader(props: AuthHeaderProps) {
             )}
             {data && (
                 <div className="flex gap-8 items-center">
-                    <button className="flex items-center cursor-pointer tracking-wider py-2 px-4 border-blue-500 border-2 rounded font-semibold text-blue-500 ease-in-out duration-200 hover:bg-blue-500 hover:text-white">
-                        <span className="mr-3">
-                            <GoPlus className="text-[18px] font-bold" />
-                        </span>
-                        Tạo bài viết
-                    </button>
+                    <Link to="/create-blog">
+                        <button className="flex items-center cursor-pointer tracking-wider py-2 px-4 bg-blue-50 border-blue-500 border-2 rounded font-semibold text-blue-500 ease-in-out duration-200 hover:bg-blue-500 hover:text-white">
+                            <span className="mr-2">
+                                <GoPlus className="text-[18px] font-bold" />
+                            </span>
+                            Tạo bài viết
+                        </button>
+                    </Link>
                     <div className="relative">
                         <div
                             className="cursor-pointer border-4 border-gray-200 rounded-full hover:border-blue-500 ease-in-out duration-200"

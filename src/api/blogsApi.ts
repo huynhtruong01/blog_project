@@ -14,11 +14,11 @@ export const blogsApi = {
         const url = '/blogs/search'
         return axiosClient.get(url, { params })
     },
-    getByUser: <T extends { page: number; limit: number }>(data: T) => {
+    getByUser: <T extends { page?: number; limit: number }>(data: T) => {
         const url = `/blogs/by-user`
         return axiosClient.post(url, data)
     },
-    getByCategory: <T extends { page: number; limit: number }>(data: T) => {
+    getByCategory: <T extends { page?: number; limit: number }>(data: T) => {
         const url = `/blogs/by-category`
         return axiosClient.post(url, data)
     },

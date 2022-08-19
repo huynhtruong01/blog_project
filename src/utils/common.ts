@@ -19,6 +19,14 @@ export const truncate = (txt: string, maximumText: number) => {
     return `${txt.slice(0, maximumText)}\u2026`
 }
 
+export const truncateWords = (txt: string, maximumText: number) => {
+    return `${txt
+        .split(' ')
+        .filter((x) => !!x && x.length >= 2)
+        .slice(0, maximumText)
+        .join(' ')}\u2026`
+}
+
 // ====================== IMAGE ====================
 export const checkFileImage = (file: any) => {
     const typeImageList = ['image/png', 'image/jpeg', 'image/jpg']
