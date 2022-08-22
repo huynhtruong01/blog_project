@@ -9,7 +9,7 @@ export function Account(props: AccountProps) {
     const queryClient = useQueryClient()
 
     useEffect(() => {
-        window.document.title = 'Thông tin của bạn | H.Blog'
+        window.document.title = 'Thông tin cá nhân | H.Blog'
     }, [])
 
     const { data, isLoading }: any = useQuery(

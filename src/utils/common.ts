@@ -31,8 +31,8 @@ export const truncateWords = (txt: string, maximumText: number) => {
 export const checkFileImage = (file: any) => {
     const typeImageList = ['image/png', 'image/jpeg', 'image/jpg']
     let error = ''
-    if (file.size >= 6 * 1024 * 1024) {
-        error = 'Vui lòng chọn ảnh đại diện không lớn hơn 6MB'
+    if (file.size >= 3 * 1024 * 1024) {
+        error = 'Vui lòng chọn ảnh đại diện không tối đa 3MB'
         return error
     }
 

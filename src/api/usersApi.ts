@@ -14,7 +14,7 @@ export const usersApi = {
         return axiosClient.put(url, data)
     },
     removeWebsiteUrl(data: { _id: string; websiteUrl: string }) {
-        const url = `/users/delete-website-url/${data._id}`
+        const url = `/users/delete-website-url/${data?._id}`
         return axiosClient.put(url, data)
     },
 }

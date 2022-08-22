@@ -11,7 +11,7 @@ export function GlobalState(props: GlobalStateProps) {
     queryClient.setQueryData(['users'], users)
 
     // data delete
-    queryClient.setQueryData(['data-delete'], null)
+    queryClient.setQueryData(['data-modal'], null)
 
     return <></>
 }

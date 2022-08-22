@@ -22,3 +22,17 @@ svg {
 a {
     display: block;
 }
+
+/* editor quill */
+.quill {
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.ql-toolbar {
+    border-radius: 4px 4px 0 0;
+}
+
+.ql-container {
+    border-radius: 0 0 4px 4px;
+}

@@ -18,7 +18,7 @@ export function InputField({ name, label, placeholder, form, disabled = false }:
             name={name}
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
-                <div className="my-4">
+                <div className="my-2">
                     <label
                         htmlFor={label}
                         className="block mb-1 font-medium text-gray-900 text-base"
@@ -31,7 +31,7 @@ export function InputField({ name, label, placeholder, form, disabled = false }:
                         name={name}
                         value={value}
                         onChange={onChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-500 block w-full p-2.5 disabled:border-gray-300 disabled:text-gray-300"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded focus:border-blue-500 block w-full p-2.5 disabled:border-gray-300 disabled:text-gray-300"
                         placeholder={placeholder}
                         disabled={disabled}
                     />

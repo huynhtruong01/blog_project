@@ -1,11 +1,81 @@
-import { useEffect } from 'react'
+import { blogsApi } from '@/api'
+import { ModalLoading } from '@/components/common'
+import { uploadImage } from '@/utils/common'
+import { useQueryClient } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { CreateBlogForm } from './components'
 
 export interface CreateBlogProps {}
 
+interface CreateBlogValues {
+    title: string
+    description: string
+    category: string
+    content: string
+    thumbnail: any
+}
+
 export function CreateBlog(props: CreateBlogProps) {
+    const [open, setOpen] = useState(false)
+    const queryClient = useQueryClient()
+    const users: any = queryClient.getQueryData(['users'])
+    const navigate = useNavigate()
+
     useEffect(() => {
         window.document.title = 'Tạo bài viết | H.Blog'
     }, [])
 
-    return <div></div>
+    const handleSubmit = async (values: CreateBlogValues) => {
+        setOpen(true)
+        try {
+            let thumbnail = values?.thumbnail
+            if (typeof values?.thumbnail !== 'string') {
+                const { url }: any = await uploadImage(values?.thumbnail)
+                thumbnail = url
+            }
+
+            const newValues = { ...values, user: users?.user?._id, thumbnail }
+            await blogsApi.add(newValues)
+
+            toast.success('Tạo bài viết thành công', {
+                autoClose: 2000,
+                theme: 'colored',
+            })
+
+            setTimeout(() => navigate('/'), 3000)
+        } catch (error: any) {
+            console.log(error)
+            toast.error(error, {
+                autoClose: 2000,
+                theme: 'colored',
+            })
+        }
+
+        setOpen(false)
+    }
+
+    return (
+        <div className="max-w-5xl py-4 px-10 bg-white rounded m-auto">
+            <div>
+                <div>
+                    <span className="text-2xl leading-normal text-gray-800 font-bold tracking-wide">
+                        Tạo bài viết
+                    </span>
+                </div>
+                <div className="mt-1">
+                    <span className="text-gray-400 text-lg leading-normal font-thin">
+                        Đăng bài viết lên trang
+                    </span>
+                </div>
+            </div>
+            <div className="mt-6">
+                <CreateBlogForm onSubmit={handleSubmit} />
+            </div>
+            <ToastContainer />
+            <ModalLoading open={open} setOpen={setOpen} />
+        </div>
+    )
 }

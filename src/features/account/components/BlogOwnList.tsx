@@ -28,7 +28,7 @@ export function BlogOwnList({ user }: BlogOwnListProps) {
                 {data && data?.length > 0 && (
                     <div className="h-screen">
                         {data?.map((blog: any) => (
-                            <BlogOwnItem blog={blog} />
+                            <BlogOwnItem blog={blog} key={blog._id} />
                         ))}
                     </div>
                 )}

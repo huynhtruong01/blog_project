@@ -4,6 +4,7 @@ import { truncate } from '@/utils/common'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { IoAdd, IoCloseSharp } from 'react-icons/io5'
+import { MdDelete } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import { InputAddField } from './InputAddField'
 
@@ -73,12 +74,14 @@ export function InformationWebsite({
             websiteUrl: value,
         }
 
-        queryClient.setQueryData(['data-delete'], {
+        console.log(user?._id)
+
+        queryClient.setQueryData(['data-modal'], {
             message: 'Bạn có chắc chắn muốn xóa website này không?',
             values: newValues,
             title: 'Xóa website',
         })
-        queryClient.invalidateQueries(['data-delete'])
+        queryClient.invalidateQueries(['data-modal'])
         setOpen(true)
     }
 
@@ -125,7 +128,7 @@ export function InformationWebsite({
                     )}
                 </div>
             )}
-            <Modal open={open} setOpen={setOpen} callback={handleRemoveWebsite} />
+            <Modal open={open} setOpen={setOpen} callback={handleRemoveWebsite} icon={MdDelete} />
         </div>
     )
 }
