@@ -20,7 +20,9 @@ export function TextAreaField({
     rows = 2,
     disabled = false,
 }: TextAreaFieldProps) {
-    const [numberCharacters, setNumberCharacters] = useState<number>(0)
+    const [numberCharacters, setNumberCharacters] = useState<number>(
+        form.getValues(name)?.length || 0
+    )
     const { control, formState }: any = form
     const error = formState?.errors[name]
 
@@ -65,7 +67,7 @@ export function TextAreaField({
                             )}
                             {!error && <span className="pl-2 mt-1 text-red-700 text-sm"></span>}
                             <span
-                                className={`text-sm text-gray-500 ${error ? 'text-red-700' : ''}`}
+                                className={`text-sm text-gray-400 ${error ? 'text-red-700' : ''}`}
                             >
                                 {numberCharacters}/{maximumCharacters}
                             </span>

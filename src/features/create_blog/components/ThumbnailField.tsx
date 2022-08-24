@@ -6,10 +6,11 @@ import { IoIosCloudUpload } from 'react-icons/io'
 export interface ThumbnailFieldProps {
     name: string
     form: any
+    initValue?: string
 }
 
-export function ThumbnailField({ name, form }: ThumbnailFieldProps) {
-    const [thumbnail, setThumbnail] = useState('')
+export function ThumbnailField({ name, form, initValue = '' }: ThumbnailFieldProps) {
+    const [thumbnail, setThumbnail] = useState(initValue)
     const [loading, setLoading] = useState<boolean>(false)
 
     const handleThumbnailChange = async (file: any) => {

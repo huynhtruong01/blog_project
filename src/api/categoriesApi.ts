@@ -1,7 +1,7 @@
 import axiosClient from './axiosClient'
 
 export const categoriesApi = {
-    getAll: <T extends { page: number; limit: number }>(params?: T) => {
+    getAll: <T extends { page?: number; limit?: number }>(params?: T) => {
         const url = '/categories'
         return axiosClient.get(url, { params })
     },

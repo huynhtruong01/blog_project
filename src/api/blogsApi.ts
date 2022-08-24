@@ -50,8 +50,8 @@ export const blogsApi = {
         const url = '/blogs/unsave-blog'
         return axiosClient.post(url, data)
     },
-    getAllSave: <T extends { id: string; page: number; limit: number }>(params: T) => {
-        const url = '/blogs/get-all-save'
+    getAllSave: <T extends { id: string; page: number; limit: number }>(params?: T) => {
+        const url = '/save-blog'
         return axiosClient.get(url, { params })
     },
 }

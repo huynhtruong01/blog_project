@@ -23,6 +23,10 @@ a {
     display: block;
 }
 
+button {
+    cursor: pointer;
+}
+
 /* editor quill */
 .quill {
     background-color: #fff;

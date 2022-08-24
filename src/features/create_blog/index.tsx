@@ -1,12 +1,12 @@
 import { blogsApi } from '@/api'
-import { ModalLoading } from '@/components/common'
+import { CreateAndEditBlogForm, ModalLoading } from '@/components/common'
 import { uploadImage } from '@/utils/common'
+import { BlogData } from '@/utils/interface'
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { CreateBlogForm } from './components'
 
 export interface CreateBlogProps {}
 
@@ -23,6 +23,14 @@ export function CreateBlog(props: CreateBlogProps) {
     const queryClient = useQueryClient()
     const users: any = queryClient.getQueryData(['users'])
     const navigate = useNavigate()
+
+    const initValues: BlogData = {
+        title: '',
+        description: '',
+        thumbnail: '',
+        content: '',
+        category: '',
+    }
 
     useEffect(() => {
         window.document.title = 'Tạo bài viết | H.Blog'
@@ -72,7 +80,7 @@ export function CreateBlog(props: CreateBlogProps) {
                 </div>
             </div>
             <div className="mt-6">
-                <CreateBlogForm onSubmit={handleSubmit} />
+                <CreateAndEditBlogForm onSubmit={handleSubmit} initValues={initValues} />
             </div>
             <ToastContainer />
             <ModalLoading open={open} setOpen={setOpen} />

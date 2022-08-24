@@ -10,7 +10,7 @@ export function StoryList({ storyList }: StoryListProps) {
     return (
         <div>
             {storyList.map((story) => (
-                <Story story={story} />
+                <Story story={story} key={story?._id} />
             ))}
         </div>
     )

@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { MdDelete } from 'react-icons/md'
 import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export interface ModalProps {
     open: boolean
@@ -15,19 +15,20 @@ export function Modal({ open, setOpen, callback, icon = null }: ModalProps) {
     const handleClose = () => {
         setOpen(false)
     }
+    const values: any = queryClient.getQueryData(['data-modal'])
 
     const { data }: any = useQuery(['data-modal'], async () => {
         try {
-            const values = queryClient.getQueryData(['data-modal'])
+            const data = queryClient.getQueryData(['data-modal'])
 
-            return values
+            return data
         } catch (error: any) {
             console.log(error)
             throw new Error(error)
         }
     })
 
-    const handleRemoveWebsite = async () => {
+    const handleClick = async () => {
         // console.log(callback)
         if (!callback) return
 
@@ -37,10 +38,9 @@ export function Modal({ open, setOpen, callback, icon = null }: ModalProps) {
             } else {
                 await callback()
             }
-
             setOpen(false)
 
-            toast.success('Xóa URL website thành công', {
+            toast.success(values?.toastSuccessMess || 'Xóa thành công', {
                 autoClose: 2000,
                 theme: 'colored',
             })
@@ -61,15 +61,15 @@ export function Modal({ open, setOpen, callback, icon = null }: ModalProps) {
                         onClick={handleClose}
                     >
                         <div className="relative h-full md:h-auto">
-                            <div className="relative bg-white rounded-lg shadow px-8 py-4">
+                            <div className="relative bg-white rounded-lg shadow px-8 py-6 pb-4">
                                 {icon && (
-                                    <div className="flex justify-center items-start p-4">
+                                    <div className="flex justify-center items-start p-2">
                                         <div className="p-2 rounded-full bg-red-100">
                                             <Icon className="text-[30px] text-red-600" />
                                         </div>
                                     </div>
                                 )}
-                                <div className="p-4">
+                                <div className="p-4 pt-2">
                                     <h3 className="text-center font-bold text-2xl text-gray-700">
                                         {data?.title}
                                     </h3>
@@ -83,7 +83,7 @@ export function Modal({ open, setOpen, callback, icon = null }: ModalProps) {
                                     </button>
                                     <button
                                         className="text-white bg-red-500 hover:bg-red-700 rounded-3xl border border-gray-200 text-sm font-medium px-10 py-3 hover:text-white focus:z-10 duration-200 ease-in-out"
-                                        onClick={handleRemoveWebsite}
+                                        onClick={handleClick}
                                     >
                                         {data?.btnMain || 'Xóa'}
                                     </button>
@@ -91,9 +91,9 @@ export function Modal({ open, setOpen, callback, icon = null }: ModalProps) {
                             </div>
                         </div>
                     </div>
-                    <ToastContainer />
                 </div>
             )}
+            <ToastContainer />
         </>
     )
 }

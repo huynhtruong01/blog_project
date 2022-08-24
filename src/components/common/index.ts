@@ -1,5 +1,6 @@
 export * from './Avatar'
 export * from './ButtonIcon'
+export * from './CreateAndEditBlogForm'
 export * from './EditorElement'
 export * from './LoadingSpinner'
 export * from './Menu'

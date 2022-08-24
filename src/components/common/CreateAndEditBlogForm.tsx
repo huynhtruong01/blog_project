@@ -1,5 +1,7 @@
 import { Modal } from '@/components/common'
 import { EditField } from '@/components/field_controls'
+import { BlogTextField } from '@/features/create_blog/components/BlogTextField'
+import { ThumbnailField } from '@/features/create_blog/components/ThumbnailField'
 import { BlogData } from '@/utils/interface'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useQueryClient } from '@tanstack/react-query'
@@ -8,15 +10,13 @@ import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as yup from 'yup'
-import { BlogTextField } from './BlogTextField'
-import { ThumbnailField } from './ThumbnailField'
 
-export interface CreateBlogFormProps {
+export interface CreateAndEditBlogFormProps {
     onSubmit: ((values?: any) => Promise<void>) | null
-    initValues: BlogData
+    initValues: any
 }
 
-export function CreateBlogForm({ onSubmit, initValues }: CreateBlogFormProps) {
+export function CreateAndEditBlogForm({ onSubmit, initValues }: CreateAndEditBlogFormProps) {
     const [open, setOpen] = useState<boolean>(false)
     const queryClient = useQueryClient()
     const { id }: any = useParams()
@@ -51,7 +51,7 @@ export function CreateBlogForm({ onSubmit, initValues }: CreateBlogFormProps) {
         defaultValues: {
             title: initValues.title,
             description: initValues.description,
-            category: initValues.category,
+            category: initValues.category?._id || '',
             thumbnail: initValues.thumbnail,
             content: initValues.content,
         },
@@ -94,14 +94,21 @@ export function CreateBlogForm({ onSubmit, initValues }: CreateBlogFormProps) {
 
     const handleCancelBlog = () => {
         // console.log(form.reset)
-        form.reset()
+        if (id) {
+            const keyList = ['title', 'thumbnail', 'category', 'description', 'content']
+            Object.keys(initValues)
+                .filter((x: any) => keyList.includes(x))
+                .forEach((x: any) => form.setValue(x, initValues[x]))
+        } else {
+            form.reset()
+        }
     }
 
     return (
         <form className="w-full" onSubmit={form.handleSubmit(handleSubmit)}>
             <div className="mb-6">
                 <div>
-                    <ThumbnailField name="thumbnail" form={form} />
+                    <ThumbnailField name="thumbnail" form={form} initValue={initValues.thumbnail} />
                 </div>
                 <div className="mt-10">
                     <BlogTextField
@@ -138,13 +145,13 @@ export function CreateBlogForm({ onSubmit, initValues }: CreateBlogFormProps) {
                 <button
                     type="submit"
                     disabled={form?.formState?.isSubmitting}
-                    className={`flex items-center justify-center font-medium bg-blue-500 text-white py-2 text-lg rounded hover:bg-blue-700 px-8 ${
+                    className={`flex items-center justify-center font-medium bg-blue-500 border-2 border-blue-500 text-white py-2 text-lg rounded hover:bg-blue-700 px-8 ${
                         form?.formState?.isSubmitting
                             ? 'disabled:bg-gray-300 disabled:text-white cursor-no-drop'
                             : ''
                     } duration-200 ease-in-out`}
                 >
-                    <span>Tạo bài viết</span>
+                    <span>{id ? 'Cập nhập bài viết' : 'Tạo bài viết'}</span>
                 </button>
             </div>
             <Modal open={open} setOpen={setOpen} callback={handleCancelBlog} />
