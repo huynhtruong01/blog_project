@@ -121,11 +121,7 @@ export function BlogByUser(props: BlogByUserProps) {
                     </>
                 )}
             </div>
-            {isLoading && (
-                <div className="flex justify-center">
-                    <LoadingSpinner />
-                </div>
-            )}
+            {isLoading && <LoadingSpinner />}
             {data && <BlogUserList blogList={data?.data} />}
             {data?.data?.length === 0 && categoryList?.data && (
                 <p className="text-center text-gray-600">

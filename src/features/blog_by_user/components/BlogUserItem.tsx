@@ -72,7 +72,7 @@ export function BlogUserItem({ blog }: BlogUserItemProps) {
 
     return (
         <div className="w-full flex flex-col rounded border-2 border-gray-100 p-2">
-            <Link to={`/blogs/${blog._id}`} className="">
+            <Link to={`/blogs/${blog._id}`}>
                 <div className="h-[185px] overflow-hidden rounded">
                     <img
                         src={blog.thumbnail}

@@ -40,11 +40,7 @@ export function AccountHome(props: AccountHomeProps) {
 
     return (
         <>
-            {isLoading && (
-                <div className="flex justify-center items-center">
-                    <LoadingSpinner />
-                </div>
-            )}
+            {isLoading && <LoadingSpinner />}
             {data && (
                 <div className="flex gap-6 m-auto px-4">
                     <div className="w-[420px]">

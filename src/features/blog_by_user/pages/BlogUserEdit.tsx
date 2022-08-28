@@ -17,11 +17,7 @@ export function BlogUserEdit(props: BlogUserEditProps) {
 
     return (
         <div>
-            {isLoading && (
-                <div className="flex justify-center">
-                    <LoadingSpinner />
-                </div>
-            )}
+            {isLoading && <LoadingSpinner />}
             {data && <CreateAndEditBlogForm onSubmit={handleEdit} initValues={data} />}
         </div>
     )

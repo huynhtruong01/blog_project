@@ -49,11 +49,7 @@ export function BlogOwnList({ user }: BlogOwnListProps) {
                     </>
                 )}
 
-                {isLoading && (
-                    <div className="flex justify-center items-center">
-                        <LoadingSpinner />
-                    </div>
-                )}
+                {isLoading && <LoadingSpinner />}
             </div>
         </div>
     )

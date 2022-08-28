@@ -47,11 +47,7 @@ export function SaveBlog(props: SaveBlogProps) {
     return (
         <div className="max-w-5xl m-auto">
             <div className="w-full p-6 bg-white rounded">
-                {isLoading && (
-                    <div className="flex justify-center">
-                        <LoadingSpinner />
-                    </div>
-                )}
+                {isLoading && <LoadingSpinner />}
                 {data?.data?.length > 0 && <SaveBlogList blogList={data?.data} />}
             </div>
         </div>

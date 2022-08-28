@@ -1,9 +1,11 @@
+import { LoadingSpinner } from '@/components/common'
+import { Pagination } from '@/components/filters'
 import { fetchAllStory } from '@/utils/fetch_api'
 import { useQuery } from '@tanstack/react-query'
 import queryString from 'query-string'
 import { useEffect, useMemo } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { StoryList } from '../components'
+import { FiltersStory, StoryList } from '../components'
 
 export interface StoryHomeProps {}
 
@@ -19,10 +21,11 @@ export function StoryHome(props: StoryHomeProps) {
         const params: any = queryString.parse(location.search)
 
         return {
+            ...params,
             page: Number.parseInt(params?.page) || 1,
             limit: Number.parseInt(params?.limit) || 10,
         }
-    }, [])
+    }, [location.search])
 
     useEffect(() => {
         const params = queryString.stringify(filters)
@@ -32,9 +35,46 @@ export function StoryHome(props: StoryHomeProps) {
         })
     }, [])
 
-    const { data }: any = useQuery([filters], fetchAllStory, {
-        staleTime: 3 * 60 * 1000,
-    })
+    const { data, isLoading, refetch }: any = useQuery([filters], fetchAllStory)
+    useEffect(() => {
+        refetch()
+    }, [filters])
 
-    return <div>{data?.data && <StoryList storyList={data.data} />}</div>
+    const handlePaginationChange = (page: number) => {
+        const newFilters = { ...filters, page }
+        navigate({
+            pathname: location.pathname,
+            search: `?${queryString.stringify(newFilters)}`,
+        })
+    }
+
+    const handleFilters = (filters: any) => {
+        navigate({
+            pathname: location.pathname,
+            search: `?${queryString.stringify(filters)}`,
+        })
+    }
+
+    console.log(filters)
+
+    return (
+        <div>
+            <div className="mb-3">
+                <FiltersStory filters={filters} onChange={handleFilters} />
+            </div>
+            {isLoading && <LoadingSpinner />}
+            {data?.data && (
+                <div className="mt-3">
+                    <StoryList storyList={data.data} />
+                    <div className="flex justify-center mt-1 pt-2 pb-2">
+                        <Pagination
+                            prevPage={filters.page}
+                            totalPage={data?.totalCount}
+                            onClick={handlePaginationChange}
+                        />
+                    </div>
+                </div>
+            )}
+        </div>
+    )
 }

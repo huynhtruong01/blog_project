@@ -5,22 +5,22 @@ import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md'
 export interface PaginationProps {
     prevPage: number
     totalPage: number
-    onClick: (page: number) => void
+    onClick?: (page: number) => void | null
 }
 
 export function Pagination({ prevPage, onClick, totalPage }: PaginationProps) {
     const handlePrev = () => {
-        if (prevPage === 1) return
-        onClick(prevPage + 1)
-    }
-
-    const handleNext = () => {
-        if (prevPage === totalPage) return
+        if (prevPage === 1 || !onClick) return
         onClick(prevPage - 1)
     }
 
+    const handleNext = () => {
+        if (prevPage === totalPage || !onClick) return
+        onClick(prevPage + 1)
+    }
+
     const handlePageClick = (page: number) => {
-        if (page === prevPage) return
+        if (page === prevPage || !onClick) return
         onClick(page)
     }
 
@@ -39,9 +39,9 @@ export function Pagination({ prevPage, onClick, totalPage }: PaginationProps) {
                 <button
                     className={`w-9 h-9 flex justify-center items-center p-2 rounded mr-2 ${
                         prevPage === pageNumber
-                            ? 'bg-blue-500 text-white border-blue-500 hover:bg-blue-700 hover:border-blue-700'
-                            : 'text-gray-600 border border-gray-600 hover:bg-gray-500 hover:border-gray-500'
-                    } hover:text-white ease-in-out duration-200`}
+                            ? 'bg-blue-500 text-white border-blue-500 hover:bg-blue-700 hover:border-blue-700 hover:text-white'
+                            : 'text-gray-600 border border-gray-600 hover:bg-gray-300 hover:border-gray-300 hover:text-gray-700'
+                    }  ease-in-out duration-200`}
                     key={pageNumber}
                     onClick={() => handlePageClick(pageNumber)}
                 >
