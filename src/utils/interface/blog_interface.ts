@@ -7,6 +7,7 @@ export interface BlogData {
     thumbnail: string
     content: string
     category: any
+    likes?: number | any[]
     createdAt?: string
     updatedAt?: string
 }

@@ -1,7 +1,6 @@
 import { CreateAndEditBlogForm, LoadingSpinner } from '@/components/common'
-import { blogById } from '@/utils/fetch_api'
+import { fetchBlogById } from '@/utils/fetch_api'
 import { useQuery } from '@tanstack/react-query'
-import * as React from 'react'
 import { useParams } from 'react-router-dom'
 
 export interface BlogUserEditProps {}
@@ -9,7 +8,7 @@ export interface BlogUserEditProps {}
 export function BlogUserEdit(props: BlogUserEditProps) {
     const { id } = useParams()
 
-    const { data, isLoading } = useQuery([id], blogById, {
+    const { data, isLoading } = useQuery([id], fetchBlogById, {
         cacheTime: 0,
     })
 

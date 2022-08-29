@@ -28,7 +28,10 @@ export function StoryHome(props: StoryHomeProps) {
     }, [location.search])
 
     useEffect(() => {
-        const params = queryString.stringify(filters)
+        const params = queryString.stringify({
+            limit: 10,
+            page: 1,
+        })
         navigate({
             pathname: location.pathname,
             search: `?${params}`,
@@ -55,16 +58,16 @@ export function StoryHome(props: StoryHomeProps) {
         })
     }
 
-    console.log(filters)
+    // console.log(filters)
 
     return (
-        <div>
-            <div className="mb-3">
+        <div className="max-w-5xl m-auto">
+            <div className="mb-4">
                 <FiltersStory filters={filters} onChange={handleFilters} />
             </div>
             {isLoading && <LoadingSpinner />}
             {data?.data && (
-                <div className="mt-3">
+                <div className="mt-4">
                     <StoryList storyList={data.data} />
                     <div className="flex justify-center mt-1 pt-2 pb-2">
                         <Pagination

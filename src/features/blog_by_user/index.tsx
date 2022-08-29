@@ -1,6 +1,6 @@
 import { LoadingSpinner } from '@/components/common'
 import { Pagination, Search, SelectSearch } from '@/components/filters'
-import { getAllAccountBlog, getAllCategory } from '@/utils/fetch_api'
+import { fetchAllCategory, getAllAccountBlog } from '@/utils/fetch_api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import queryString from 'query-string'
 import { useEffect, useMemo } from 'react'
@@ -49,7 +49,7 @@ export function BlogByUser(props: BlogByUserProps) {
         refetch()
     }, [filters])
 
-    const categoryList = useQuery(['category-list-for-user-blog'], getAllCategory, {
+    const categoryList = useQuery(['category-list-for-user-blog'], fetchAllCategory, {
         staleTime: Infinity,
     })
 
@@ -65,7 +65,6 @@ export function BlogByUser(props: BlogByUserProps) {
 
     const handleSearchChange = (value: string) => {
         const newFilters: any = { ...filters }
-        console.log(newFilters)
         let params
 
         if (value === '') {

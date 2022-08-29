@@ -68,3 +68,8 @@ export const uploadImage = async (file: any) => {
         console.log(error)
     }
 }
+
+// ================ LINK =====================
+export const getFirstPathname = (pathname: string) => {
+    return pathname.split('/')[1]
+}

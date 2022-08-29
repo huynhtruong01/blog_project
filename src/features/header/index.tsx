@@ -10,17 +10,17 @@ export function Header(props: HeaderProps) {
         {
             id: 1,
             name: 'Girls China',
-            path: '/girls-china',
+            path: 'girls-china',
         },
         {
             id: 2,
             name: 'Blog',
-            path: '/blogs',
+            path: 'blogs',
         },
     ]
 
     return (
-        <header className="w-full shadow-md fixed top-0 left-0 bg-white z-50">
+        <header className="w-full border-b border-gray-300 fixed top-0 left-0 bg-white z-50">
             <div className="max-w-5xl flex justify-between items-center px-4 py-3 m-auto">
                 <div>
                     <Link to="/" className="font-bold text-blue-500 text-2xl">

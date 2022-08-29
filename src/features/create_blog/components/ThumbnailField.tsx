@@ -14,6 +14,8 @@ export function ThumbnailField({ name, form, initValue = '' }: ThumbnailFieldPro
     const [loading, setLoading] = useState<boolean>(false)
 
     const handleThumbnailChange = async (file: any) => {
+        if (!file) return
+
         setLoading(true)
         try {
             const url: any = URL.createObjectURL(file)

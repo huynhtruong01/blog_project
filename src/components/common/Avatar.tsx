@@ -2,7 +2,7 @@ import * as React from 'react'
 
 export interface AvatarProps {
     imgUrl: string
-    nameAvatar: string
+    nameAvatar?: string
     sizeAvatar: string
 }
 
@@ -23,6 +23,21 @@ export function Avatar({ imgUrl, nameAvatar, sizeAvatar }: AvatarProps) {
             }
             case '2xl': {
                 return 'w-[88px] h-[88px]'
+            }
+            case '3xl': {
+                return 'w-[104px] h-[104px]'
+            }
+            case '4xl': {
+                return 'w-[120px] h-[120px]'
+            }
+            case '5xl': {
+                return 'w-[136px] h-[136px]'
+            }
+            case '6xl': {
+                return 'w-[152px] h-[152px]'
+            }
+            case '7xl': {
+                return 'w-[168px] h-[168px]'
             }
         }
     }

@@ -1,5 +1,6 @@
 import { storiesApi } from '@/api'
 
+// get all
 export const fetchAllStory = async ({ queryKey }: any) => {
     try {
         let values: any
@@ -13,6 +14,17 @@ export const fetchAllStory = async ({ queryKey }: any) => {
         return { data, totalCount }
     } catch (error: any) {
         console.log(error)
+        throw new Error(error)
+    }
+}
+
+// get by id
+export const fetchByIdStory = async ({ queryKey }: any) => {
+    try {
+        const { data }: any = await storiesApi.getById(queryKey[0])
+
+        return data
+    } catch (error: any) {
         throw new Error(error)
     }
 }
