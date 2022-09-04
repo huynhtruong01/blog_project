@@ -1,12 +1,13 @@
-import { blogsApi } from '@/api'
-import { LoadingSpinner } from '@/components/common'
+import { blogsApi, usersApi } from '@/api'
+import { Avatar, LoadingSpinner } from '@/components/common'
 import { fetchBlogById } from '@/utils/fetch_api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import DOMPurify from 'dompurify'
 import { useEffect, useState } from 'react'
-import { AiFillLike } from 'react-icons/ai'
-import { useParams } from 'react-router-dom'
+import { AiFillFolderAdd, AiFillLike } from 'react-icons/ai'
+import { FaUser } from 'react-icons/fa'
+import { Link, useParams } from 'react-router-dom'
 
 export interface BlogsDetailProps {}
 
@@ -18,19 +19,30 @@ export function BlogsDetail(props: BlogsDetailProps) {
 
     const [isLike, setIsLike] = useState<boolean>(() => data?.likes?.includes(users?.user?._id))
     const [like, setLike] = useState<number>(() => data?.likes?.length)
+    const [isSaveBlog, setIsSaveBlog] = useState<boolean>(() =>
+        data?.user?.saveBlog?.includes(data?._id)
+    )
+    const [isFollow, setIsFollow] = useState<boolean>(() =>
+        data?.user?.follows?.includes(users?.user?._id)
+    )
 
     useEffect(() => {
-        if (data) {
+        if (!isLoading && data) {
             setLike(data?.likes?.length)
             setIsLike(data?.likes?.includes(users?.user?._id))
+            setIsSaveBlog(data?.user?.savedBlog?.includes(data?._id))
+            setIsFollow(data?.user?.followers?.includes(users?.user?._id))
         } else {
             setLike(0)
             setIsLike(false)
+            setIsSaveBlog(false)
+            setIsSaveBlog(false)
         }
-    }, [data])
+    }, [isLoading])
 
     const content = DOMPurify.sanitize(data?.content || '')
 
+    // like
     const handleLikeClick = async () => {
         try {
             if (!isLike) {
@@ -43,7 +55,44 @@ export function BlogsDetail(props: BlogsDetailProps) {
                 await blogsApi.unlike({ blogId: data?._id, userId: users?.user?._id })
             }
 
-            queryClient.invalidateQueries()
+            refetch()
+        } catch (error: any) {
+            console.log(error)
+        }
+    }
+
+    // follow
+    const handleFollowClick = async () => {
+        try {
+            if (isFollow) {
+                setIsFollow(false)
+                await usersApi.unfollow({ id: users?.user?._id, userId: data?.user?._id })
+            } else {
+                setIsFollow(true)
+                await usersApi.follow({ id: users?.user?._id, userId: data?.user?._id })
+            }
+
+            // update information user
+            const user = await usersApi.getById(users?.user?._id)
+            localStorage.setItem('users', JSON.stringify({ ...users, user: user?.data }))
+            queryClient.setQueryData(['users'], { ...users, user: user?.data })
+
+            refetch()
+        } catch (error: any) {
+            console.log(error)
+        }
+    }
+
+    // save blog
+    const handleSaveBlogClick = async () => {
+        try {
+            if (isSaveBlog) {
+                setIsSaveBlog(false)
+                await blogsApi.unsave({ blogId: data?._id, userId: users?.user?._id })
+            } else {
+                setIsSaveBlog(true)
+                await blogsApi.save({ blogId: data?._id, userId: users?.user?._id })
+            }
 
             refetch()
         } catch (error: any) {
@@ -60,6 +109,71 @@ export function BlogsDetail(props: BlogsDetailProps) {
                         <div className="h-[370px] rounded overflow-hidden mb-4">
                             <img src={data?.thumbnail} alt={data?.title} />
                         </div>
+                        <div className="flex mx-12 justify-between">
+                            <div className="flex px-2">
+                                <div className="mr-2">
+                                    <Link to={`/profile/${data?.user?._id}`}>
+                                        <Avatar
+                                            imgUrl={data?.user?.avatar}
+                                            nameAvatar={data?.user?.fullname}
+                                            sizeAvatar="lg"
+                                        />
+                                    </Link>
+                                </div>
+                                <div>
+                                    <Link
+                                        to={`/profile/${data?.user?._id}`}
+                                        className="text-blue-500 text-lg font-medium hover:text-blue-700 ease-in-out duration-200"
+                                    >
+                                        {data?.user?.username}
+                                    </Link>
+                                    <span className="text-sm text-gray-300">
+                                        {data?.user?.fullname}
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="flex items-center">
+                                <div className="mr-2">
+                                    <button
+                                        className={`flex items-center px-4 py-2 ${
+                                            isFollow
+                                                ? 'bg-blue-500 text-white'
+                                                : 'bg-white text-blue-500 hover:bg-blue-50'
+                                        } rounded border border-blue-500 font-medium ease-in-out duration-200`}
+                                        onClick={handleFollowClick}
+                                    >
+                                        <FaUser className="mr-2 text-[22px]" />
+                                        {isFollow ? 'Đã theo dõi' : 'Theo dõi'}
+                                    </button>
+                                </div>
+                                <div className="mr-2">
+                                    <button
+                                        className={`flex items-center px-4 py-2 ${
+                                            isLike
+                                                ? 'bg-blue-500 text-white'
+                                                : 'bg-white text-blue-500 hover:bg-blue-50'
+                                        } rounded border border-blue-500 font-medium ease-in-out duration-200`}
+                                        onClick={handleLikeClick}
+                                    >
+                                        <AiFillLike className="mr-2 text-[22px]" />
+                                        {isLike ? 'Đã thích' : 'Thích'}
+                                    </button>
+                                </div>
+                                <div>
+                                    <button
+                                        className={`flex items-center px-4 py-2 ${
+                                            isSaveBlog
+                                                ? 'bg-blue-500 text-white'
+                                                : 'bg-white text-blue-500 hover:bg-blue-50'
+                                        } rounded border border-blue-500 font-medium ease-in-out duration-200`}
+                                        onClick={handleSaveBlogClick}
+                                    >
+                                        <AiFillFolderAdd className="mr-2 text-[22px]" />
+                                        {isSaveBlog ? 'Đã lưu' : 'Lưu bài viết'}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className="mt-12 px-4 py-2">
                         <div className='relative py-4 pb-2 before:content-[""] before:w-[100%] before:h-[1px] before:bg-gray-300 before:absolute before:bottom-0 before:left-[50%] before:translate-x-[-50%]'>
@@ -67,14 +181,11 @@ export function BlogsDetail(props: BlogsDetailProps) {
                                 {data?.title}
                             </h2>
                             <div className="flex justify-end items-end px-6 mt-4">
-                                <div className="flex items-center mr-4">
+                                <div className="flex mr-4">
                                     <span className="text-gray-900 font-semibold text-sm mr-1">
                                         {like || '0'}
                                     </span>
-                                    <div
-                                        className="p-1 rounded bg-blue-700 cursor-pointer"
-                                        onClick={handleLikeClick}
-                                    >
+                                    <div className="p-1 rounded bg-blue-700 cursor-pointer">
                                         <AiFillLike className="text-white text-[12px]" />
                                     </div>
                                 </div>

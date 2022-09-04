@@ -3,7 +3,7 @@ import { getAllSaveBlog } from '@/utils/fetch_api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import queryString from 'query-string'
 import { useEffect, useMemo } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { SaveBlogList } from './components'
 
 export interface SaveBlogProps {}
@@ -37,7 +37,10 @@ export function SaveBlog(props: SaveBlogProps) {
 
     const { data, isLoading, refetch } = useQuery(
         [{ id: users?.user?._id, type: 'save-blog', ...filters }],
-        getAllSaveBlog
+        getAllSaveBlog,
+        {
+            cacheTime: 0,
+        }
     )
 
     useEffect(() => {
@@ -46,10 +49,23 @@ export function SaveBlog(props: SaveBlogProps) {
 
     return (
         <div className="max-w-5xl m-auto">
-            <div className="w-full p-6 bg-white rounded">
-                {isLoading && <LoadingSpinner />}
-                {data?.data?.length > 0 && <SaveBlogList blogList={data?.data} />}
-            </div>
+            {isLoading && <LoadingSpinner />}
+            {data?.data?.length === 0 && !isLoading && (
+                <p className="text-center text-gray-500">
+                    Không có bài viết nào đã lưu ở đây.{' '}
+                    <Link
+                        to="/blogs"
+                        className="inline text-blue-500 hover:text-blue-700 font-medium duration-200 ease-in-out"
+                    >
+                        Nhấn vào đây để xem bài viết
+                    </Link>
+                </p>
+            )}
+            {data?.data?.length > 0 && (
+                <div className="w-full p-6 bg-white rounded">
+                    {<SaveBlogList blogList={data?.data} />}
+                </div>
+            )}
         </div>
     )
 }

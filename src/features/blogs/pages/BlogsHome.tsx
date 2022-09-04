@@ -23,7 +23,13 @@ export function BlogsHome(props: BlogsHomeProps) {
         }
     }, [location.search])
 
-    const { data, isLoading, refetch }: any = useQuery([{ ...filters, type: 'blog' }], fetchAllBlog)
+    const { data, isLoading, refetch }: any = useQuery(
+        [{ ...filters, type: 'blog' }],
+        fetchAllBlog,
+        {
+            cacheTime: 0,
+        }
+    )
 
     useEffect(() => {
         refetch()
@@ -44,6 +50,8 @@ export function BlogsHome(props: BlogsHomeProps) {
             search: `?${params}`,
         })
     }
+
+    console.log(data)
 
     return (
         <div className="max-w-5xl m-auto bg-white rounded p-4">

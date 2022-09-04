@@ -6,16 +6,16 @@ export interface AvatarProps {
     sizeAvatar: string
 }
 
-export function Avatar({ imgUrl, nameAvatar, sizeAvatar }: AvatarProps) {
+export function Avatar({ imgUrl, nameAvatar, sizeAvatar = 'md' }: AvatarProps) {
     const renderSizeAvatar = () => {
         switch (sizeAvatar) {
-            case 'small': {
+            case 'sm': {
                 return 'w-[24px] h-[24px]'
             }
-            case 'medium': {
+            case 'md': {
                 return 'w-[40px] h-[40px]'
             }
-            case 'large': {
+            case 'lg': {
                 return 'w-[56px] h-[56px]'
             }
             case 'xl': {

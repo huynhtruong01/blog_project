@@ -17,4 +17,12 @@ export const usersApi = {
         const url = `/users/delete-website-url/${data?._id}`
         return axiosClient.put(url, data)
     },
+    follow(data: { id: string; userId: string }) {
+        const url = '/users/follow'
+        return axiosClient.post(url, data)
+    },
+    unfollow(data: { id: string; userId: string }) {
+        const url = '/users/unfollow'
+        return axiosClient.post(url, data)
+    },
 }

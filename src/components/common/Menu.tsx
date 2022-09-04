@@ -32,7 +32,7 @@ export function Menu({ menuList, open }: MenuProps) {
         <div
             className={`absolute ${
                 open ? 'visible opacity-100' : 'invisible opacity-0'
-            } top-[55px] right-0 z-10 w-[230px] font-normal bg-white rounded divide-y divide-gray-100 shadow duration-100 ease-in-out`}
+            } top-[55px] right-0 z-10 w-[250px] font-normal bg-white rounded divide-y divide-gray-100 shadow duration-100 ease-in-out`}
         >
             <ul className="text-sm text-gray-700 p-2" aria-labelledby="dropdownLargeButton">
                 {menuList.map((menu) => {

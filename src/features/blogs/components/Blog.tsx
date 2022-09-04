@@ -11,7 +11,7 @@ export interface BlogProps {
 
 export function Blog({ blog }: BlogProps) {
     return (
-        <div className="p-2 rounded border border-gray-300">
+        <div className="rounded border border-gray-300 pb-2">
             <Link to={`/blogs/${blog._id}`}>
                 <div className="h-48 overflow-hidden rounded">
                     <img
@@ -21,33 +21,28 @@ export function Blog({ blog }: BlogProps) {
                     />
                 </div>
             </Link>
-            <div className="mt-2 px-2">
-                <div className="flex justify-between items-center px-2 mb-2">
-                    <span className="text-xs text-gray-400 font-medium">
+            <div className="p-2">
+                <div className="mt-2 px-2">
+                    <Link to={`/blogs/${blog._id}`}>
+                        <h3 className="text-xl font-bold text-blue-500 hover:text-blue-700 duration-200 ease-in-out">
+                            {truncateWords(blog.title, 4)}
+                        </h3>
+                    </Link>
+                    <p className="text-sm text-gray-600">{truncateWords(blog.description, 11)}</p>
+                </div>
+                <div className="flex justify-between mt-6 px-2 items-center">
+                    <div className="font-sm">
+                        <Link to={`/profile/${blog?.user?._id}`}>
+                            By:{' '}
+                            <span className="text-blue-400 hover:text-blue-600 ease-in-out duration-200">
+                                {blog?.user?.username}
+                            </span>
+                        </Link>
+                    </div>
+                    <span className="text-sm text-gray-400">
                         {dayjs(blog.createdAt).format('DD/MM/YYYY')}
                     </span>
-                    <div className="flex items-center">
-                        <div className="p-1 rounded bg-blue-700 mr-1">
-                            <AiFillLike className="text-white text-[12px]" />
-                        </div>
-                        <span className="text-gray-900 font-semibold text-sm">
-                            {blog?.likes || '0'}
-                        </span>
-                    </div>
                 </div>
-                <Link to={`/blogs/${blog._id}`}>
-                    <h3 className="text-xl font-bold text-gray-900 hover:text-blue-700 duration-200 ease-in-out">
-                        {truncateWords(blog.title, 4)}
-                    </h3>
-                </Link>
-                <p className="text-sm text-gray-600">{truncateWords(blog.description, 11)}</p>
-            </div>
-            <div className="flex justify-center mt-5">
-                <Link to={`/blogs/${blog._id}`}>
-                    <button className="bg-blue-500 py-2 px-4 rounded text-white hover:bg-blue-700 ease-in-out duration-200">
-                        Xem chi tiết
-                    </button>
-                </Link>
             </div>
         </div>
     )

@@ -1,6 +1,7 @@
 import { Avatar, Menu } from '@/components/common'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
+import { AiFillLike } from 'react-icons/ai'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 import { FaUser } from 'react-icons/fa'
 import { GoPlus } from 'react-icons/go'
@@ -44,12 +45,19 @@ export function AuthHeader(props: AuthHeaderProps) {
         },
         {
             icon: BsFillBookmarkFill,
-            name: 'Các blog đã lưu',
+            name: 'Các bài viết đã lưu',
             onClick: () => {
-                navigate('/save-blog')
                 setOpen(false)
             },
             link: '/save-blog',
+        },
+        {
+            icon: AiFillLike,
+            name: 'Các bài viết đã thích',
+            onClick: () => {
+                setOpen(false)
+            },
+            link: '/likes-blog',
         },
         {
             icon: RiLogoutBoxRLine,
@@ -126,7 +134,7 @@ export function AuthHeader(props: AuthHeaderProps) {
                             <Avatar
                                 imgUrl={data?.user?.avatar}
                                 nameAvatar={data?.user?.fullname}
-                                sizeAvatar="medium"
+                                sizeAvatar="md"
                             />
                         </div>
                         <Menu menuList={menuList} open={open} />

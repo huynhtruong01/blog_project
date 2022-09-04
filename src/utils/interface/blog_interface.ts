@@ -1,7 +1,7 @@
 // api
 export interface BlogData {
     _id?: string
-    user?: string
+    user?: any
     title: string
     description: string
     thumbnail: string
