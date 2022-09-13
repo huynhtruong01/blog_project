@@ -10,14 +10,16 @@ export interface StoryDetailProps {}
 export function StoryDetail(props: StoryDetailProps) {
     const { id }: any = useParams()
 
-    const { data, isLoading }: any = useQuery([id], fetchByIdStory)
+    const { data, isLoading }: any = useQuery([id], fetchByIdStory, {
+        cacheTime: 0,
+    })
 
     console.log(data)
 
     const content = DOMPurify.sanitize(data?.content || '')
 
     return (
-        <div className="max-w-5xl m-auto">
+        <div className="w-full">
             {isLoading && <LoadingSpinner />}
             {data && (
                 <div className="bg-white rounded border border-gray-200">

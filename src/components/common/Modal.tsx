@@ -34,16 +34,17 @@ export function Modal({ open, setOpen, callback, icon = null }: ModalProps) {
 
         try {
             if (data?.values) {
+                console.log(data?.values)
                 await callback(data?.values)
             } else {
                 await callback()
             }
-            setOpen(false)
 
             toast.success(values?.toastSuccessMess || 'Xóa thành công', {
                 autoClose: 2000,
                 theme: 'colored',
             })
+            setOpen(false)
         } catch (error: any) {
             toast.error(error, {
                 autoClose: 2000,

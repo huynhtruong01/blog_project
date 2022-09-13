@@ -1,5 +1,6 @@
 import { blogsApi, usersApi } from '@/api'
 import { Avatar, LoadingSpinner } from '@/components/common'
+import { truncateWords } from '@/utils/common'
 import { fetchBlogById } from '@/utils/fetch_api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
@@ -25,6 +26,12 @@ export function BlogsDetail(props: BlogsDetailProps) {
     const [isFollow, setIsFollow] = useState<boolean>(() =>
         data?.user?.follows?.includes(users?.user?._id)
     )
+
+    console.log(data)
+
+    useEffect(() => {
+        if (data) window.document.title = `${truncateWords(data?.title, 3)}\u2026 | H.Blog`
+    }, [data])
 
     useEffect(() => {
         if (!isLoading && data) {
@@ -101,7 +108,7 @@ export function BlogsDetail(props: BlogsDetailProps) {
     }
 
     return (
-        <div className="max-w-5xl m-auto">
+        <div>
             {isLoading && <LoadingSpinner />}
             {data && (
                 <div className="bg-white rounded border border-gray-200">

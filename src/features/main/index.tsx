@@ -8,10 +8,10 @@ export function Main(props: MainProps) {
     window.scrollTo(0, 0)
 
     return (
-        <div className="pt-[87px] py-6 px-4 bg-gray-50 min-h-screen">
+        <main className="max-w-6xl pt-[96px] pb-9 bg-white min-h-screen m-auto px-4">
             <FeatureRoutes />
             <CommonRoutes />
             <GlobalState />
-        </div>
+        </main>
     )
 }

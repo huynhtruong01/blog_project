@@ -15,7 +15,11 @@ export function SaveBlog(props: SaveBlogProps) {
 
     const users: any = queryClient.getQueryData(['users'])
 
-    console.log(users)
+    // console.log(users)
+
+    useEffect(() => {
+        window.document.title = 'Các bài viết đã lưu | H.Blog'
+    }, [])
 
     useEffect(() => {
         const params = queryString.stringify({ limit: 10, page: 1 })

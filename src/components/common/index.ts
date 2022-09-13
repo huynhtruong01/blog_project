@@ -1,4 +1,5 @@
 export * from './Avatar'
+export * from './BlogList'
 export * from './ButtonIcon'
 export * from './CreateAndEditBlogForm'
 export * from './EditorElement'

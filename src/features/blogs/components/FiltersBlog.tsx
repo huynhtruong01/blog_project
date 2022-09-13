@@ -1,5 +1,5 @@
 import { Search, SelectSearch } from '@/components/filters'
-import { fetchAllCategory } from '@/utils/fetch_api'
+import { fetchAllCategoryNotFilter } from '@/utils/fetch_api'
 import { useQuery } from '@tanstack/react-query'
 
 export interface FiltersBlogProps {
@@ -8,7 +8,7 @@ export interface FiltersBlogProps {
 }
 
 export function FiltersBlog({ filters, onChange }: FiltersBlogProps) {
-    const { data } = useQuery(['category-list'], fetchAllCategory)
+    const { data } = useQuery(['category-list'], fetchAllCategoryNotFilter)
 
     const handleSearchChange = (value: string) => {
         let newFilters: any

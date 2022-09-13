@@ -58,7 +58,7 @@ export function InformationAccount({ user }: InformationAccountProps) {
 
     return (
         <div className="flex flex-col gap-6">
-            <div className="flex items-center p-6 bg-white rounded">
+            <div className="flex items-center p-6 bg-white rounded border border-gray-200">
                 <div>
                     <label htmlFor="avatar" className="cursor-pointer">
                         <div className="relative w-[65px] h-[65px] border-4 hover:border-blue-500 ease-in-out duration-200 rounded-full">
@@ -84,8 +84,8 @@ export function InformationAccount({ user }: InformationAccountProps) {
                 </div>
             </div>
             <InformationMain user={user} />
-            <div className="rounded bg-white overflow-hidden">
-                <div className="py-3 px-6 bg-blue-500 rounded">
+            <div className="rounded bg-white overflow-hidden border border-gray-200">
+                <div className="py-3 px-6 bg-blue-500 rounded-t">
                     <h3 className="text-lg font-bold text-white ">Thông tin khác của bạn</h3>
                 </div>
                 <div className="px-6 py-3">

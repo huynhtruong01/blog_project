@@ -24,9 +24,9 @@ export function Story({ story }: StoryProps) {
                     {dayjs(story.createdAt).format('DD/MM/YYYY')}
                 </div>
                 <Link to={`/girls-china/${story._id}`}>
-                    <h2 className="text-2xl font-bold text-gray-900 hover:text-blue-500 ease-in-out duration-200">
+                    <h3 className="text-xl font-bold text-blue-500 hover:text-blue-700 hover:underline">
                         {truncateWords(story.title, 4)}
-                    </h2>
+                    </h3>
                 </Link>
                 <p className="text-sm text-gray-600">{truncateWords(story.description, 9)}</p>
             </div>

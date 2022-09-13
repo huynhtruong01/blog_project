@@ -38,7 +38,10 @@ export function StoryHome(props: StoryHomeProps) {
         })
     }, [])
 
-    const { data, isLoading, refetch }: any = useQuery([filters], fetchAllStory)
+    const { data, isLoading, refetch }: any = useQuery(
+        [{ ...filters, type: 'girls-china' }],
+        fetchAllStory
+    )
     useEffect(() => {
         refetch()
     }, [filters])
@@ -61,7 +64,7 @@ export function StoryHome(props: StoryHomeProps) {
     // console.log(filters)
 
     return (
-        <div className="max-w-5xl m-auto">
+        <div className="w-full m-auto">
             <div className="mb-4">
                 <FiltersStory filters={filters} onChange={handleFilters} />
             </div>

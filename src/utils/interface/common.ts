@@ -4,3 +4,10 @@ export interface NavLinkData {
     path: string
     name: string
 }
+
+// tab
+export interface Tab {
+    icon: any
+    name: string
+    path: string
+}

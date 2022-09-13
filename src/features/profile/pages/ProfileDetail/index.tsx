@@ -33,7 +33,10 @@ export function ProfileDetail({ user }: ProfileDetailProps) {
     return (
         <div className="px-10">
             {profileDetailList?.map((item: ProfileDetailItem) => (
-                <div className="flex border-b last:border-0 border-blue-300 mb-2 last:mb-0">
+                <div
+                    className="flex border-b last:border-0 border-blue-300 mb-2 last:mb-0"
+                    key={item.key}
+                >
                     <div className="w-48 mr-4 p-4 py-6 bg-blue-50 text-blue-700 font-medium rounded-t rounded-r">
                         <span>{item.name}</span>
                     </div>

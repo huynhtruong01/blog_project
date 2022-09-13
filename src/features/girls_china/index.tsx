@@ -6,8 +6,8 @@ export interface GirlsChinaProps {}
 
 export function GirlsChina(props: GirlsChinaProps) {
     return (
-        <div>
+        <section className="w-full">
             <GirlsChinaRoutes />
-        </div>
+        </section>
     )
 }

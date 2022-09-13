@@ -37,7 +37,7 @@ export function PasswordField({
                         name={name}
                         value={value}
                         onChange={onChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 disabled:border-gray-300 disabled:text-gray-300"
+                        className="bg-white border border-gray-300 text-gray-900 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 disabled:border-gray-300 disabled:text-gray-300"
                         placeholder={placeholder}
                         disabled={disabled}
                     />

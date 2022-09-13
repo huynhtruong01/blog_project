@@ -1,12 +1,12 @@
 import { BlogsRoutes } from '@/routes/BlogsRoutes'
-import * as React from 'react'
+import { useEffect } from 'react'
 
 export interface BlogsProps {}
 
 export function Blogs(props: BlogsProps) {
     return (
-        <div>
+        <section className="w-full">
             <BlogsRoutes />
-        </div>
+        </section>
     )
 }

@@ -1,6 +1,8 @@
+import { blogsApi } from '@/api'
 import { ButtonIcon, Modal } from '@/components/common'
 import { truncateWords } from '@/utils/common'
 import { BlogData } from '@/utils/interface'
+import { useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { useState } from 'react'
 import { MdDelete } from 'react-icons/md'
@@ -12,10 +14,29 @@ export interface SaveBlogItemProps {
 
 export function SaveBlogItem({ blog }: SaveBlogItemProps) {
     const [open, setOpen] = useState<boolean>(false)
+    const queryClient = useQueryClient()
+    const users: any = queryClient.getQueryData(['users'])
 
-    const handleShowModal = () => {}
+    const handleShowModal = () => {
+        setOpen(true)
+        queryClient.setQueryData(['data-modal'], {
+            title: 'Xóa bài viết khỏi phần lưu bài viết',
+            message: 'Bạn có chắc chắn muốn xóa bài viết viết này?',
+            values: {
+                blogId: blog._id,
+                userId: users?.user?._id,
+            },
+        })
+    }
 
-    const handleDeleteSaveBlog = () => {}
+    const handleDeleteSaveBlog = async (values: any) => {
+        try {
+            await blogsApi.unsave(values)
+            queryClient.invalidateQueries()
+        } catch (error: any) {
+            throw new Error(error)
+        }
+    }
 
     return (
         <div className="w-full flex flex-col rounded border-2 border-gray-100 p-2">

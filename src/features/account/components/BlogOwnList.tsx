@@ -22,8 +22,8 @@ export function BlogOwnList({ user }: BlogOwnListProps) {
     // console.log(data)
 
     return (
-        <div className="sticky top-[87px] w-full bg-white rounded">
-            <div className="py-3 px-6 bg-blue-500 rounded">
+        <div className="sticky top-[96px] w-full border border-gray-200 bg-white rounded">
+            <div className="py-3 px-6 bg-blue-500 rounded-t">
                 <h3 className="text-lg font-bold text-white">Danh sách các bài viết của bạn</h3>
             </div>
             <div className="p-6">

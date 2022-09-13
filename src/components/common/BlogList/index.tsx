@@ -1,6 +1,6 @@
 import { BlogData } from '@/utils/interface'
 import * as React from 'react'
-import { Blog } from './Blog'
+import { Blog } from './components'
 
 export interface BlogListProps {
     blogList: Array<BlogData>

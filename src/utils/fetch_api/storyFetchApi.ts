@@ -2,12 +2,14 @@ import { storiesApi } from '@/api'
 
 // get all
 export const fetchAllStory = async ({ queryKey }: any) => {
+    const { type, ...newQueryKey } = queryKey[0]
+
     try {
         let values: any
-        if (queryKey[0]?.name) {
-            values = await storiesApi.search(queryKey[0])
+        if (newQueryKey?.name) {
+            values = await storiesApi.search(newQueryKey)
         } else {
-            values = await storiesApi.getAll(queryKey[0])
+            values = await storiesApi.getAll(newQueryKey)
         }
 
         const { data, totalCount } = values

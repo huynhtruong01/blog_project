@@ -54,9 +54,23 @@ export const fetchAllBlog = async ({ queryKey }: any) => {
     }
 }
 
+// get by user
 export const fetchBlogByUser = async ({ queryKey }: any) => {
     try {
         const { data, totalCount }: any = await blogsApi.getByUser(queryKey[0])
+
+        const newData = data?.map((x: any) => ({ ...x, likes: x.likes.length }))
+        return { data: newData, totalCount }
+    } catch (error: any) {
+        throw new Error(error)
+    }
+}
+
+// get by category
+export const fetchBlogByCategory = async ({ queryKey }: any) => {
+    try {
+        console.log(queryKey[0])
+        const { data, totalCount }: any = await blogsApi.getByCategory(queryKey[0])
 
         const newData = data?.map((x: any) => ({ ...x, likes: x.likes.length }))
         return { data: newData, totalCount }

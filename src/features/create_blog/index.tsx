@@ -66,7 +66,7 @@ export function CreateBlog(props: CreateBlogProps) {
     }
 
     return (
-        <div className="max-w-5xl py-4 px-10 bg-white rounded m-auto">
+        <section className="bg-white rounded">
             <div>
                 <div>
                     <span className="text-2xl leading-normal text-gray-800 font-bold tracking-wide">
@@ -84,6 +84,6 @@ export function CreateBlog(props: CreateBlogProps) {
             </div>
             <ToastContainer />
             <ModalLoading open={open} setOpen={setOpen} />
-        </div>
+        </section>
     )
 }

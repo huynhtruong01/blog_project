@@ -4,8 +4,8 @@ export interface AccountProps {}
 
 export function Account(props: AccountProps) {
     return (
-        <div className="max-w-5xl m-auto">
+        <section className="w-full">
             <AccountRoutes />
-        </div>
+        </section>
     )
 }

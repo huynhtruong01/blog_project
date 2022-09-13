@@ -16,8 +16,8 @@ export function InformationMain({ user }: InformationMainProps) {
     }
 
     return (
-        <div className="rounded bg-white overflow-hidden">
-            <div className="py-3 px-6 bg-blue-500 rounded">
+        <div className="rounded bg-white overflow-hidden border border-gray-200">
+            <div className="py-3 px-6 bg-blue-500 rounded-t">
                 <h3 className="text-lg font-bold text-white ">Thông tin chính của bạn</h3>
             </div>
             <div className="px-6 py-3">
