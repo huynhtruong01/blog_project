@@ -71,8 +71,7 @@ export function AuthHeader(props: AuthHeaderProps) {
         ['users'],
         async () => {
             try {
-                const users = JSON.parse(localStorage.getItem('users') || '') || []
-                return users
+                return JSON.parse(localStorage.getItem('users') || '{}')
             } catch (error: any) {
                 throw new Error(error)
             }
@@ -96,12 +95,12 @@ export function AuthHeader(props: AuthHeaderProps) {
         setOpen((prev: boolean) => !prev)
     }
 
-    // console.log(open)
+    console.log(data)
 
     return (
         <>
             {/* not have data */}
-            {!data && (
+            {!Object.keys(data) && (
                 <div className="flex gap-2 items-center">
                     <button
                         className="py-2 px-5 text-blue-500 font-medium border-blue-500 border-2 rounded-full hover:bg-blue-700 hover:text-white hover:border-blue-700 ease-in-out duration-200"
