@@ -1,17 +1,12 @@
 import { useQueryClient } from '@tanstack/react-query'
-import * as React from 'react'
 
-export interface GlobalStateProps {}
-
-export function GlobalState(props: GlobalStateProps) {
+export const useInitGlobalState = () => {
     const queryClient = useQueryClient()
 
     // users
-    const users = JSON.parse(localStorage.getItem('users') || 'null')
+    const users = JSON.parse(localStorage.getItem('users') || '') || []
     queryClient.setQueryData(['users'], users)
 
     // data delete
     queryClient.setQueryData(['data-modal'], null)
-
-    return <></>
 }

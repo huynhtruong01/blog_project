@@ -3,12 +3,16 @@ import { fetchByIdStory } from '@/utils/fetch_api'
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import DOMPurify from 'dompurify'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 export interface StoryDetailProps {}
 
 export function StoryDetail(props: StoryDetailProps) {
     const { id }: any = useParams()
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const { data, isLoading }: any = useQuery([id], fetchByIdStory, {
         cacheTime: 0,
