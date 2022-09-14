@@ -137,7 +137,7 @@ export function AuthHeader(props: AuthHeaderProps) {
                                 sizeAvatar="md"
                             />
                         </div>
-                        <Menu menuList={menuList} open={open} />
+                        <Menu menuList={menuList} open={open} setOpen={setOpen} />
                     </div>
                 </div>
             )}

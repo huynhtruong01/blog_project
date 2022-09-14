@@ -6,6 +6,7 @@ export interface HomeProps {}
 export function Home(props: HomeProps) {
     useEffect(() => {
         document.title = 'Trang chủ | H.Blog'
+        window.scrollTo(0, 0)
     }, [])
 
     return (

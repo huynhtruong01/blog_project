@@ -1,4 +1,4 @@
-import { LoadingSpinner } from '@/components/common'
+import { SkeletonList } from '@/components/common'
 import { Pagination, Search, SelectSearch } from '@/components/filters'
 import { fetchAllCategoryNotFilter, getAllAccountBlog } from '@/utils/fetch_api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
@@ -18,11 +18,14 @@ export function BlogByUser(props: BlogByUserProps) {
 
     useEffect(() => {
         window.document.title = 'Các bài viết của bạn | H.Blog'
-        const params = queryString.stringify({ limit: 10, page: 1 })
+        const search = queryString.parse(location.search)
+        const params = queryString.stringify({ limit: 10, page: 1, ...search })
         navigate({
             pathname: location.pathname,
             search: `?${params}`,
         })
+
+        window.scrollTo(0, 0)
     }, [])
 
     const filters = useMemo(() => {
@@ -98,52 +101,51 @@ export function BlogByUser(props: BlogByUserProps) {
     }
 
     return (
-        <div className="w-full bg-white px-6 py-3">
+        <div className="w-full bg-white py-3">
             <div className="mb-5 flex items-center gap-4">
-                {categoryList?.data && (
-                    <>
-                        <div className="w-[280px]">
-                            <Search
-                                valueSearch={filters?.search || ''}
-                                onChange={handleSearchChange}
-                                placeholder={`Nhập tiêu đề bài viết\u2026`}
-                            />
-                        </div>
-                        <div>
-                            <SelectSearch
-                                category={filters?.category || ''}
-                                valueList={categoryList?.data}
-                                onChange={handleCategoryChange}
-                                placeholder={`-- Chọn tất cả --`}
-                            />
-                        </div>
-                    </>
-                )}
-            </div>
-            {isLoading && <LoadingSpinner />}
-            {data && <BlogUserList blogList={data?.data} />}
-            {data?.data?.length === 0 && categoryList?.data && (
-                <p className="text-center text-gray-600">
-                    Không có bài viết nào ở đây. Vui lòng tạo bài viết{' '}
-                    <span>
-                        <Link
-                            to="/create-blog"
-                            className="inline text-blue-400 font-medium hover:text-blue-700 hover:underline"
-                        >
-                            tại đây
-                        </Link>
-                    </span>
-                </p>
-            )}
-            {data?.data?.length > 0 && categoryList?.data && (
-                <div className="py-4 flex justify-center">
-                    <Pagination
-                        prevPage={filters.page}
-                        totalPage={data?.totalCount}
-                        onClick={handlePageClick}
+                <div className="w-[280px]">
+                    <Search
+                        valueSearch={filters?.search || ''}
+                        onChange={handleSearchChange}
+                        placeholder={`Nhập tiêu đề bài viết\u2026`}
                     />
                 </div>
-            )}
+                <div>
+                    <SelectSearch
+                        category={filters?.category || ''}
+                        valueList={categoryList?.data}
+                        onChange={handleCategoryChange}
+                        placeholder={`-- Chọn tất cả --`}
+                    />
+                </div>
+            </div>
+
+            <>
+                {isLoading && <SkeletonList amount={9} />}
+                {data && !isLoading && <BlogUserList blogList={data?.data} />}
+                {data?.data?.length === 0 && categoryList?.data && (
+                    <p className="text-center text-gray-600">
+                        Không có bài viết nào ở đây. Vui lòng tạo bài viết{' '}
+                        <span>
+                            <Link
+                                to="/create-blog"
+                                className="inline text-blue-400 font-medium hover:text-blue-700 hover:underline"
+                            >
+                                tại đây
+                            </Link>
+                        </span>
+                    </p>
+                )}
+                {data?.data?.length > 0 && categoryList?.data && (
+                    <div className="py-4 flex justify-center">
+                        <Pagination
+                            prevPage={filters.page}
+                            totalPage={data?.totalCount}
+                            onClick={handlePageClick}
+                        />
+                    </div>
+                )}
+            </>
         </div>
     )
 }

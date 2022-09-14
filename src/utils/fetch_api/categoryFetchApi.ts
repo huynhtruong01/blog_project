@@ -1,5 +1,5 @@
 import { categoriesApi } from '@/api'
-import { CategoryData } from './../interface/category_interface'
+import { CategoryData } from '@/utils/interface'
 
 // get all not filter
 export const fetchAllCategoryNotFilter = async () => {
@@ -21,6 +21,19 @@ export const fetchAllCategory = async ({ queryKey }: any) => {
         const { data, totalCount }: any = await categoriesApi.getAll(newQueryKey)
 
         return { data, totalCount }
+    } catch (error: any) {
+        throw new Error(error)
+    }
+}
+
+// get id
+export const fetchCategoryById = async ({ queryKey }: any) => {
+    try {
+        const { type, ...newQueryKey } = queryKey[0]
+
+        const { data }: { data: CategoryData } = await categoriesApi.getById(newQueryKey.id)
+
+        return data
     } catch (error: any) {
         throw new Error(error)
     }

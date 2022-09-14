@@ -1,4 +1,4 @@
-import { Avatar, LoadingSpinner } from '@/components/common'
+import { Avatar, SkeletonDetail } from '@/components/common'
 import { fetchByIdStory } from '@/utils/fetch_api'
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
@@ -14,13 +14,13 @@ export function StoryDetail(props: StoryDetailProps) {
         cacheTime: 0,
     })
 
-    console.log(data)
+    // console.log(data)
 
     const content = DOMPurify.sanitize(data?.content || '')
 
     return (
         <div className="w-full">
-            {isLoading && <LoadingSpinner />}
+            {isLoading && <SkeletonDetail />}
             {data && (
                 <div className="bg-white rounded border border-gray-200">
                     <div>

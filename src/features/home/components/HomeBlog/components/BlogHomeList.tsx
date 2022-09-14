@@ -10,32 +10,35 @@ export interface BlogHomeListProps {
 
 export function BlogHomeList({ blogList }: BlogHomeListProps) {
     return (
-        <div className="flex gap-8">
-            {blogList && (
-                <div className="basis-10/12">
-                    <div className="mb-2">
-                        <img
-                            src={blogList[0].thumbnail}
-                            alt={blogList[0].title}
-                            className="rounded"
-                        />
-                    </div>
-                    <div className="pr-6">
+        <div className="flex flex-row gap-8">
+            <div className="w-[600px]">
+                {blogList && (
+                    <>
                         <div className="mb-2">
-                            <span className="text-gray-400 text-xs font-medium">
-                                {dayjs(blogList[0].createdAt).format('DD/MM/YYYY')}
-                            </span>
+                            <img
+                                src={blogList[0].thumbnail}
+                                alt={blogList[0].title}
+                                className="rounded"
+                            />
                         </div>
-                        <h2 className="text-2xl font-bold mb-1 text-gray-900 hover:text-blue-700 hover:underline">
-                            <Link to={`/blogs/${blogList[0]._id}`}>{blogList[0].title}</Link>
-                        </h2>
-                        <p className="text-sm text-gray-500 font-medium">
-                            {blogList[0].description}
-                        </p>
-                    </div>
-                </div>
-            )}
-            <div className="basis-2/12">
+                        <div className="pr-6">
+                            <div className="mb-2">
+                                <span className="text-gray-400 text-xs font-medium">
+                                    {dayjs(blogList[0].createdAt).format('DD/MM/YYYY')}
+                                </span>
+                            </div>
+                            <h2 className="text-2xl font-bold mb-1 text-gray-900 hover:text-blue-700 hover:underline">
+                                <Link to={`/blogs/${blogList[0]._id}`}>{blogList[0].title}</Link>
+                            </h2>
+                            <p className="text-sm text-gray-500 font-medium">
+                                {blogList[0].description}
+                            </p>
+                        </div>
+                    </>
+                )}
+            </div>
+
+            <div className="flex-1">
                 <div className="mb-6">
                     {Array.from(new Array(3))
                         .fill(blogList[0])

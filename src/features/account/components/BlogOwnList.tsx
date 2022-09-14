@@ -1,4 +1,4 @@
-import { LoadingSpinner } from '@/components/common'
+import { LoadingSpinner, SkeletonColList } from '@/components/common'
 import { blogOwnList } from '@/utils/fetch_api'
 import { useQuery } from '@tanstack/react-query'
 import { Link, useLocation } from 'react-router-dom'
@@ -26,12 +26,13 @@ export function BlogOwnList({ user }: BlogOwnListProps) {
             <div className="py-3 px-6 bg-blue-500 rounded-t">
                 <h3 className="text-lg font-bold text-white">Danh sách các bài viết của bạn</h3>
             </div>
-            <div className="p-6">
+
+            <div className="py-5 px-5">
                 {data?.length === 0 && (
                     <p className="text-center text-gray-500">Bạn không có bài viết nào 😥😥😥</p>
                 )}
-
-                {data && data?.length > 0 && (
+                {isLoading && <SkeletonColList amount={5} />}
+                {data && data?.length > 0 && !isLoading && (
                     <>
                         <div>
                             {data?.map((blog: any) => (
@@ -48,8 +49,6 @@ export function BlogOwnList({ user }: BlogOwnListProps) {
                         </div>
                     </>
                 )}
-
-                {isLoading && <LoadingSpinner />}
             </div>
         </div>
     )

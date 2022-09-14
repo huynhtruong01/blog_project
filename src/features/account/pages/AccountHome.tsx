@@ -42,7 +42,7 @@ export function AccountHome(props: AccountHomeProps) {
         <>
             {isLoading && <LoadingSpinner />}
             {data && (
-                <div className="flex gap-6 m-auto px-4">
+                <div className="flex gap-6">
                     <div className="w-[420px]">
                         <InformationAccount user={userInformationAccount} />
                     </div>

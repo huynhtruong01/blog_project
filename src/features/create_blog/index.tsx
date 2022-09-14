@@ -24,6 +24,10 @@ export function CreateBlog(props: CreateBlogProps) {
     const users: any = queryClient.getQueryData(['users'])
     const navigate = useNavigate()
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    })
+
     const initValues: BlogData = {
         title: '',
         description: '',

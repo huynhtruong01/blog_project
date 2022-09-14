@@ -39,29 +39,31 @@ export function SaveBlogItem({ blog }: SaveBlogItemProps) {
     }
 
     return (
-        <div className="w-full flex flex-col rounded border-2 border-gray-100 p-2">
-            <Link to={`/blogs/${blog._id}`} className="">
-                <div className="h-[185px] overflow-hidden rounded">
+        <div className="w-full flex flex-col rounded border-2 border-gray-200">
+            <Link to={`/blogs/${blog._id}`}>
+                <div className="h-[185px] overflow-hidden rounded-t">
                     <img
                         src={blog.thumbnail}
                         alt={blog.title}
-                        className="rounded hover:scale-110 duration-200 ease-in-out"
+                        className="rounded-t hover:scale-110 duration-200 ease-in-out"
                     />
                 </div>
             </Link>
-            <div className="pt-3 pb-2">
-                <div className="px-2">
+            <div className="pt-2 pb-1">
+                <div className="px-4">
                     <div>
                         <span className="text-xs text-gray-400 font-medium">
                             {dayjs(blog.createdAt).format('DD/MM/YYYY')}
                         </span>
                     </div>
                     <Link to={`/blogs/${blog._id}`}>
-                        <h3 className="text-xl font-bold text-gray-800 hover:text-blue-700 hover:underline">
+                        <h3 className="text-xl font-bold text-gray-800 hover:text-blue-700 hover:underline mt-2">
                             {truncateWords(blog.title, 4)}
                         </h3>
                     </Link>
-                    <p className="text-sm text-gray-500">{truncateWords(blog.description, 9)}</p>
+                    <p className="text-sm text-gray-500 pr-2">
+                        {truncateWords(blog.description, 12)}
+                    </p>
                 </div>
                 <div className="flex justify-center items-center gap-3 p-2 mt-2">
                     <ButtonIcon

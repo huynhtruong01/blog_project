@@ -42,7 +42,7 @@ export function CategoryHome(props: CategoryHomeProps) {
     }
 
     return (
-        <div className="max-w-5xl m-auto px-4">
+        <div>
             {isLoading && <LoadingSpinner />}
             {data?.data?.length && (
                 <>

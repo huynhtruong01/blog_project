@@ -8,9 +8,9 @@ export interface BlogUserListProps {
 
 export function BlogUserList({ blogList }: BlogUserListProps) {
     return (
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-4 flex-wrap">
             {blogList?.map((blog: BlogData) => (
-                <div key={`${blog._id}`} className="w-[calc(100%_/_3_-_8px)]">
+                <div key={`${blog._id}`} className="w-[calc(100%_/_3_-_16px)]">
                     <BlogUserItem blog={blog} />
                 </div>
             ))}

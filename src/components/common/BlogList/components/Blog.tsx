@@ -13,16 +13,22 @@ export interface BlogProps {
 
 export function Blog({ blog }: BlogProps) {
     return (
-        <div className="rounded border border-gray-300 pb-2">
-            <Link to={`/blogs/${blog._id}`}>
-                <div className="h-48 overflow-hidden rounded-t">
+        <div className="rounded border border-gray-300 pb-2 overflow-hidden">
+            <Link to={`/blogs/${blog._id}`} className="group">
+                <div className="relative h-48 overflow-hidden rounded-t">
                     <img
                         src={blog.thumbnail}
                         alt={blog.title}
-                        className="rounded-t hover:scale-110 duration-200 ease-in-out"
+                        className="rounded-t group-hover:scale-110 duration-200 ease-in-out"
                     />
+                    <div className="absolute w-full h-full top-0 left-0 flex justify-center items-center opacity-0 invisible group-hover:bg-black group-hover:bg-opacity-40 group-hover:visible group-hover:opacity-100 ease-in-out duration-200">
+                        <span className="bg-blue-500 text-white p-3 rounded hover:bg-blue-700 font-medium ease-in-out duration-200">
+                            Xem chi tiết
+                        </span>
+                    </div>
                 </div>
             </Link>
+
             <div className="p-2">
                 <div className="mt-2 px-2">
                     <Link to={`/blogs/${blog._id}`}>
@@ -32,14 +38,14 @@ export function Blog({ blog }: BlogProps) {
                     </Link>
                     <p className="text-sm text-gray-600">{truncateWords(blog.description, 11)}</p>
                 </div>
-                <div className="flex justify-between mt-6 px-2 items-center">
+                <div className="flex justify-between mt-6 px-2 items-end">
                     <div className="font-sm">
                         {blog?.user?.username && (
-                            <Link to={`/profile/${blog?.user?._id}`}>
-                                By:{' '}
-                                <span className="text-blue-400 hover:text-blue-600 ease-in-out duration-200">
-                                    {blog?.user?.username}
-                                </span>
+                            <Link
+                                to={`/profile/${blog?.user?._id}`}
+                                className="inline bg-blue-500 p-2 rounded hover:bg-blue-700 font-semibold text-white ease-in-out duration-200"
+                            >
+                                By <span>{blog?.user?.username}</span>
                             </Link>
                         )}
                     </div>

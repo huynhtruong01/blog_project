@@ -1,10 +1,10 @@
-import { LoadingSpinner } from '@/components/common'
+import { SkeletonList } from '@/components/common'
 import { Pagination } from '@/components/filters'
 import { fetchAllStory } from '@/utils/fetch_api'
 import { useQuery } from '@tanstack/react-query'
 import queryString from 'query-string'
 import { useEffect, useMemo } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { FiltersStory, StoryList } from '../components'
 
 export interface StoryHomeProps {}
@@ -61,15 +61,13 @@ export function StoryHome(props: StoryHomeProps) {
         })
     }
 
-    // console.log(filters)
-
     return (
         <div className="w-full m-auto">
             <div className="mb-4">
                 <FiltersStory filters={filters} onChange={handleFilters} />
             </div>
-            {isLoading && <LoadingSpinner />}
-            {data?.data && (
+            {isLoading && <SkeletonList amount={10} />}
+            {data?.data && !isLoading && (
                 <div className="mt-4">
                     <StoryList storyList={data.data} />
                     <div className="flex justify-center mt-1 pt-2 pb-2">

@@ -3,12 +3,12 @@ import { useQuery } from '@tanstack/react-query'
 import * as React from 'react'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 import { Link } from 'react-router-dom'
-import { CategoryHomeList } from './components'
+import { CategoryHomeList, SkeletonCategory } from './components'
 
 export interface HomeCategoryProps {}
 
 export function HomeCategory(props: HomeCategoryProps) {
-    const { data } = useQuery(['category-review'], fetchAllCategory)
+    const { data, isLoading } = useQuery(['category-review'], fetchAllCategory)
 
     return (
         <div>
@@ -24,7 +24,12 @@ export function HomeCategory(props: HomeCategoryProps) {
                     </Link>
                 </div>
             </div>
-            <div>{data?.data?.length > 0 && <CategoryHomeList categoryList={data?.data} />}</div>
+            <div>
+                {isLoading && <SkeletonCategory />}
+                {data?.data?.length > 0 && !isLoading && (
+                    <CategoryHomeList categoryList={data?.data} />
+                )}
+            </div>
         </div>
     )
 }

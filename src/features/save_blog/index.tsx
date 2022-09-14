@@ -1,4 +1,4 @@
-import { LoadingSpinner } from '@/components/common'
+import { SkeletonList } from '@/components/common'
 import { getAllSaveBlog } from '@/utils/fetch_api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import queryString from 'query-string'
@@ -52,8 +52,8 @@ export function SaveBlog(props: SaveBlogProps) {
     }, [filters])
 
     return (
-        <div className="max-w-5xl m-auto">
-            {isLoading && <LoadingSpinner />}
+        <section>
+            {isLoading && <SkeletonList amount={9} />}
             {data?.data?.length === 0 && !isLoading && (
                 <p className="text-center text-gray-500">
                     Không có bài viết nào đã lưu ở đây.{' '}
@@ -66,10 +66,10 @@ export function SaveBlog(props: SaveBlogProps) {
                 </p>
             )}
             {data?.data?.length > 0 && (
-                <div className="w-full p-6 bg-white rounded">
+                <div className="w-full bg-white rounded">
                     {<SaveBlogList blogList={data?.data} />}
                 </div>
             )}
-        </div>
+        </section>
     )
 }

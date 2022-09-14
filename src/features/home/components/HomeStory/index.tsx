@@ -1,6 +1,6 @@
+import { SkeletonList } from '@/components/common'
 import { fetchAllStory } from '@/utils/fetch_api'
 import { useQuery } from '@tanstack/react-query'
-import * as React from 'react'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import { StoryHomeList } from './components'
@@ -8,9 +8,12 @@ import { StoryHomeList } from './components'
 export interface HomeStoryProps {}
 
 export function HomeStory(props: HomeStoryProps) {
-    const { data }: any = useQuery([{ limit: 10, page: 1, type: 'home-story' }], fetchAllStory)
+    const { data, isLoading }: any = useQuery(
+        [{ limit: 10, page: 1, type: 'home-story' }],
+        fetchAllStory
+    )
 
-    console.log(data)
+    // console.log(data)
 
     return (
         <div>
@@ -27,7 +30,10 @@ export function HomeStory(props: HomeStoryProps) {
                 </div>
             </div>
             <div>
-                {data?.data?.length > 0 && <StoryHomeList storyList={data.data.slice(0, 4)} />}
+                {isLoading && <SkeletonList amount={4} />}
+                {data?.data?.length > 0 && !isLoading && (
+                    <StoryHomeList storyList={data.data.slice(0, 4)} />
+                )}
             </div>
         </div>
     )

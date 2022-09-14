@@ -1,5 +1,5 @@
 import { blogsApi, usersApi } from '@/api'
-import { Avatar, LoadingSpinner } from '@/components/common'
+import { Avatar, SkeletonDetail } from '@/components/common'
 import { truncateWords } from '@/utils/common'
 import { fetchBlogById } from '@/utils/fetch_api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
@@ -13,10 +13,16 @@ import { Link, useParams } from 'react-router-dom'
 export interface BlogsDetailProps {}
 
 export function BlogsDetail(props: BlogsDetailProps) {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     const { id }: any = useParams()
     const queryClient = useQueryClient()
     const users: any = queryClient.getQueryData(['users'])
-    const { data, isLoading, refetch }: any = useQuery([id], fetchBlogById)
+    const { data, isLoading, refetch }: any = useQuery([id], fetchBlogById, {
+        cacheTime: 0,
+    })
 
     const [isLike, setIsLike] = useState<boolean>(() => data?.likes?.includes(users?.user?._id))
     const [like, setLike] = useState<number>(() => data?.likes?.length)
@@ -27,14 +33,15 @@ export function BlogsDetail(props: BlogsDetailProps) {
         data?.user?.follows?.includes(users?.user?._id)
     )
 
-    console.log(data)
+    // console.log(data)
 
     useEffect(() => {
-        if (data) window.document.title = `${truncateWords(data?.title, 3)}\u2026 | H.Blog`
+        if (data)
+            window.document.title = `${data?.title?.split(' ')?.slice(0, 4).join(' ')} | H.Blog`
     }, [data])
 
     useEffect(() => {
-        if (!isLoading && data) {
+        if (!isLoading) {
             setLike(data?.likes?.length)
             setIsLike(data?.likes?.includes(users?.user?._id))
             setIsSaveBlog(data?.user?.savedBlog?.includes(data?._id))
@@ -45,7 +52,9 @@ export function BlogsDetail(props: BlogsDetailProps) {
             setIsSaveBlog(false)
             setIsSaveBlog(false)
         }
-    }, [isLoading])
+    }, [isLoading, data])
+
+    console.log('re-render')
 
     const content = DOMPurify.sanitize(data?.content || '')
 
@@ -109,15 +118,15 @@ export function BlogsDetail(props: BlogsDetailProps) {
 
     return (
         <div>
-            {isLoading && <LoadingSpinner />}
-            {data && (
+            {isLoading && <SkeletonDetail />}
+            {data && !isLoading && (
                 <div className="bg-white rounded border border-gray-200">
                     <div>
                         <div className="h-[370px] rounded overflow-hidden mb-4">
                             <img src={data?.thumbnail} alt={data?.title} />
                         </div>
                         <div className="flex mx-12 justify-between">
-                            <div className="flex px-2">
+                            <div className="flex px-2 items-center">
                                 <div className="mr-2">
                                     <Link to={`/profile/${data?.user?._id}`}>
                                         <Avatar
@@ -128,15 +137,14 @@ export function BlogsDetail(props: BlogsDetailProps) {
                                     </Link>
                                 </div>
                                 <div>
-                                    <Link
-                                        to={`/profile/${data?.user?._id}`}
-                                        className="text-blue-500 text-lg font-medium hover:text-blue-700 ease-in-out duration-200"
-                                    >
-                                        {data?.user?.username}
+                                    <Link to={`/profile/${data?.user?._id}`}>
+                                        <span className="text-blue-500 leading-none text-xl font-medium hover:text-blue-700 hover:underline">
+                                            {data?.user?.username}
+                                        </span>
                                     </Link>
-                                    <span className="text-sm text-gray-300">
+                                    <div className="text-sm leading-none text-gray-300">
                                         {data?.user?.fullname}
-                                    </span>
+                                    </div>
                                 </div>
                             </div>
                             <div className="flex items-center">

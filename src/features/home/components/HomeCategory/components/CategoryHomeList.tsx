@@ -17,9 +17,11 @@ export function CategoryHomeList({ categoryList }: CategoryHomeListProps) {
     }
 
     return (
-        <div className="flex">
+        <div className="flex gap-4">
             {categoryList.map((category: CategoryData) => (
-                <CategoryHomeItem category={category} key={category._id} />
+                <div className="w-[calc(100%_/_4_-_16px)]" key={category._id}>
+                    <CategoryHomeItem category={category} />
+                </div>
             ))}
         </div>
     )

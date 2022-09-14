@@ -1,4 +1,4 @@
-import { BlogList, LoadingSpinner } from '@/components/common'
+import { BlogList, LoadingSpinner, SkeletonList } from '@/components/common'
 import { Pagination } from '@/components/filters'
 import { fetchAllBlog } from '@/utils/fetch_api'
 import { useQuery } from '@tanstack/react-query'
@@ -10,11 +10,22 @@ import { FiltersBlog } from '../components'
 export interface BlogsHomeProps {}
 
 export function BlogsHome(props: BlogsHomeProps) {
-    const location = useLocation()
+    const location: { pathname: string; search: string } = useLocation()
     const navigate = useNavigate()
 
     useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    useEffect(() => {
         window.document.title = 'Blog | H.Blog'
+        const search = queryString.parse(location.search)
+        const params = queryString.stringify({ limit: 10, page: 1, ...search })
+
+        navigate({
+            pathname: location.pathname,
+            search: `?${params}`,
+        })
     }, [])
 
     const filters = useMemo(() => {
@@ -62,7 +73,7 @@ export function BlogsHome(props: BlogsHomeProps) {
             <div className="mb-3">
                 <FiltersBlog filters={filters} onChange={handleFiltersChange} />
             </div>
-            {isLoading && <LoadingSpinner />}
+            {isLoading && <SkeletonList amount={9} />}
             {data && (
                 <div className="mt-3">
                     <BlogList blogList={data.data} />

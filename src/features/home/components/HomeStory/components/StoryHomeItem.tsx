@@ -14,7 +14,7 @@ export function StoryHomeItem({ story }: StoryHomeItemProps) {
             <div className="w-full h-36 mb-2">
                 <img src={story?.avatarCover} alt={story.title} className="rounded" />
             </div>
-            <div>
+            <div className="px-1">
                 <div>
                     <span className="text-xs text-gray-400 font-medium">
                         {dayjs(story.createdAt).format('DD/MM/YYYY')}
