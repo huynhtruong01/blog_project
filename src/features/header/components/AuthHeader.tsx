@@ -71,7 +71,7 @@ export function AuthHeader(props: AuthHeaderProps) {
         ['users'],
         async () => {
             try {
-                const users = queryClient.getQueryData(['users'])
+                const users = JSON.parse(localStorage.getItem('users') || '') || []
                 return users
             } catch (error: any) {
                 throw new Error(error)
@@ -100,6 +100,7 @@ export function AuthHeader(props: AuthHeaderProps) {
 
     return (
         <>
+            {/* not have data */}
             {!data && (
                 <div className="flex gap-2 items-center">
                     <button
@@ -116,6 +117,8 @@ export function AuthHeader(props: AuthHeaderProps) {
                     </button>
                 </div>
             )}
+
+            {/* have data  */}
             {data && (
                 <div className="flex gap-8 items-center">
                     <Link to="/create-blog">
