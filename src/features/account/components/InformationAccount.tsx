@@ -86,7 +86,7 @@ export function InformationAccount({ user }: InformationAccountProps) {
             <InformationMain user={user} />
             <div className="rounded bg-white overflow-hidden border border-gray-200">
                 <div className="py-3 px-6 bg-blue-500 rounded-t">
-                    <h3 className="text-lg font-bold text-white ">Thông tin khác của bạn</h3>
+                    <h3 className="text-xl font-bold text-white ">Thông tin khác của bạn</h3>
                 </div>
                 <div className="px-6 py-3">
                     <div className="mb-8">

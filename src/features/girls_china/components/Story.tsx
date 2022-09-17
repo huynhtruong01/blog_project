@@ -27,16 +27,14 @@ export function Story({ story }: StoryProps) {
 
             <div className="mt-2 px-4 py-2 pt-1">
                 <div className="text-xs text-gray-400 mb-1">
-                    <span className="font-medium">
-                        {dayjs(story.createdAt).format('DD/MM/YYYY')}
-                    </span>
+                    <span>{dayjs(story.createdAt).format('DD/MM/YYYY')}</span>
                 </div>
                 <Link to={`/girls-china/${story._id}`}>
-                    <h3 className="text-2xl font-bold text-blue-500 hover:text-blue-700 hover:underline mt-2">
+                    <h3 className="text-xl font-bold text-gray-900 hover:text-blue-700 hover:underline mt-2">
                         {truncateWords(story.title, 4)}
                     </h3>
                 </Link>
-                <p className="text-sm text-gray-600 pr-4">{truncateWords(story.description, 13)}</p>
+                <p className="text-sm text-gray-500 pr-4">{truncateWords(story.description, 13)}</p>
             </div>
             {/* <div className="mt-3 flex justify-center">
                 <Link to={`/girls-china/${story._id}`}>

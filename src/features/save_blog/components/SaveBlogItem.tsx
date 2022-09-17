@@ -1,5 +1,5 @@
 import { blogsApi } from '@/api'
-import { ButtonIcon, Modal } from '@/components/common'
+import { ButtonIcon } from '@/components/common'
 import { truncateWords } from '@/utils/common'
 import { BlogData } from '@/utils/interface'
 import { useQueryClient } from '@tanstack/react-query'
@@ -13,21 +13,8 @@ export interface SaveBlogItemProps {
 }
 
 export function SaveBlogItem({ blog }: SaveBlogItemProps) {
-    const [open, setOpen] = useState<boolean>(false)
     const queryClient = useQueryClient()
     const users: any = queryClient.getQueryData(['users'])
-
-    const handleShowModal = () => {
-        setOpen(true)
-        queryClient.setQueryData(['data-modal'], {
-            title: 'Xóa bài viết khỏi phần lưu bài viết',
-            message: 'Bạn có chắc chắn muốn xóa bài viết viết này?',
-            values: {
-                blogId: blog._id,
-                userId: users?.user?._id,
-            },
-        })
-    }
 
     const handleDeleteSaveBlog = async (values: any) => {
         try {
@@ -36,6 +23,23 @@ export function SaveBlogItem({ blog }: SaveBlogItemProps) {
         } catch (error: any) {
             throw new Error(error)
         }
+    }
+
+    const handleShowModal = () => {
+        queryClient.setQueryData(['data-modal'], {
+            title: 'Xóa bài viết khỏi phần lưu bài viết',
+            message: 'Bạn có chắc chắn muốn xóa bài viết viết này?',
+            values: {
+                blogId: blog._id,
+                userId: users?.user?._id,
+            },
+            callback: handleDeleteSaveBlog,
+        })
+        queryClient.setQueryData(['show-modal-delete'], true)
+
+        queryClient.invalidateQueries({
+            queryKey: ['show-modal-delete', 'data-modal'],
+        })
     }
 
     return (
@@ -74,7 +78,6 @@ export function SaveBlogItem({ blog }: SaveBlogItemProps) {
                     />
                 </div>
             </div>
-            <Modal open={open} setOpen={setOpen} callback={handleDeleteSaveBlog} icon={MdDelete} />
         </div>
     )
 }

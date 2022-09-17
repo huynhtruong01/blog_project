@@ -18,11 +18,11 @@ export function BlogOwnItem({ blog }: BlogOwnItemProps) {
                     <span>{dayjs(blog?.created).format('DD/MM/YYYY')}</span>
                 </div>
                 <Link to={`/blogs/${blog?._id}`}>
-                    <h3 className="text-2xl font-bold text-gray-700 hover:text-blue-700 hover:underline mt-1.5">
+                    <h3 className="text-xl font-bold text-gray-700 hover:text-blue-700 hover:underline mt-1.5">
                         {truncateWords(blog?.title, 4)}
                     </h3>
                 </Link>
-                <p className="text-sm text-gray-500">{truncateWords(blog?.description, 12)}</p>
+                <p className="text-sm text-gray-500">{truncateWords(blog?.description, 22)}</p>
             </div>
         </div>
     )

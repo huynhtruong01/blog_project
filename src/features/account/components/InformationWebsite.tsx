@@ -1,11 +1,9 @@
 import { usersApi } from '@/api'
-import { ButtonIcon, Modal } from '@/components/common'
+import { ButtonIcon } from '@/components/common'
 import { truncate } from '@/utils/common'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { IoAdd, IoCloseSharp } from 'react-icons/io5'
-import { MdDelete } from 'react-icons/md'
-import { toast } from 'react-toastify'
 import { InputAddField } from './InputAddField'
 
 export interface InformationWebsiteProps {
@@ -21,7 +19,6 @@ export function InformationWebsite({
     showInputAdd,
     setShowInputAdd,
 }: InformationWebsiteProps) {
-    const [open, setOpen] = useState<boolean>(false)
     const queryClient = useQueryClient()
 
     const handleShowInput = (key: string) => {
@@ -82,7 +79,6 @@ export function InformationWebsite({
             title: 'Xóa website',
         })
         queryClient.invalidateQueries(['data-modal'])
-        setOpen(true)
     }
 
     return (
@@ -128,7 +124,6 @@ export function InformationWebsite({
                     )}
                 </div>
             )}
-            <Modal open={open} setOpen={setOpen} callback={handleRemoveWebsite} icon={MdDelete} />
         </div>
     )
 }

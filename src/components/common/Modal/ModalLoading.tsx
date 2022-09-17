@@ -1,20 +1,29 @@
-import * as React from 'react'
+import { useEffect } from 'react'
 
 export interface ModalLoadingProps {
     open: boolean
-    setOpen: any
+    setOpen?: any
 }
 
 export function ModalLoading({ open, setOpen }: ModalLoadingProps) {
+    useEffect(() => {
+        if (open) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = 'auto'
+        }
+    }, [open])
+
     return (
         <>
             {open && (
                 <div className="overflow-hidden">
                     <div className="fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center flex bg-black bg-opacity-25">
+                        <span className="text-4xl font-medium text-white mr-4">Loading</span>
                         <div>
                             <svg
                                 aria-hidden="true"
-                                className="mr-2 w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                                className="mr-2 w-10 h-10 text-gray-200 animate-spin fill-blue-600"
                                 viewBox="0 0 100 101"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"

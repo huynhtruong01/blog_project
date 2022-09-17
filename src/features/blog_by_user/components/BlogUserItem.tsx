@@ -1,5 +1,5 @@
 import { blogsApi } from '@/api'
-import { ButtonIcon, Modal } from '@/components/common'
+import { ButtonIcon } from '@/components/common'
 import { truncateWords } from '@/utils/common'
 import { BlogData } from '@/utils/interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -16,21 +16,7 @@ export interface BlogUserItemProps {
 
 export function BlogUserItem({ blog }: BlogUserItemProps) {
     const location = useLocation()
-    const [open, setOpen] = useState<boolean>(false)
     const queryClient = useQueryClient()
-
-    const handleShowModal = () => {
-        queryClient.setQueryData(['data-modal'], {
-            title: 'Xóa bài viết',
-            message: `Bạn có chắc chắn muốn xóa bài viết "${truncateWords(blog.title, 3)}"?`,
-            values: {
-                id: blog._id,
-            },
-            toastSuccessMess: 'Bài viết của bạn đã xóa thành công',
-        })
-        queryClient.invalidateQueries(['data-modal'])
-        setOpen(true)
-    }
 
     const deleteBlog = useMutation(
         async (values: any) => {
@@ -70,6 +56,18 @@ export function BlogUserItem({ blog }: BlogUserItemProps) {
         }
     }
 
+    const handleShowModal = () => {
+        queryClient.setQueryData(['data-modal'], {
+            title: 'Xóa bài viết',
+            message: `Bạn có chắc chắn muốn xóa bài viết "${truncateWords(blog.title, 3)}"?`,
+            values: {
+                id: blog._id,
+            },
+            callback: handleDeleteBlog,
+        })
+        queryClient.invalidateQueries(['data-modal'])
+    }
+
     return (
         <div className="w-full flex flex-col rounded border-2 border-gray-100">
             <Link to={`/blogs/${blog._id}`}>
@@ -107,7 +105,6 @@ export function BlogUserItem({ blog }: BlogUserItemProps) {
                     </Link>
                 </div>
             </div>
-            <Modal open={open} setOpen={setOpen} callback={handleDeleteBlog} icon={MdDelete} />
         </div>
     )
 }

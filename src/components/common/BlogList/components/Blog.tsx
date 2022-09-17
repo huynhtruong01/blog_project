@@ -32,11 +32,13 @@ export function Blog({ blog }: BlogProps) {
             <div className="p-2">
                 <div className="mt-2 px-2">
                     <Link to={`/blogs/${blog._id}`}>
-                        <h3 className="text-xl font-bold text-blue-500 hover:text-blue-700 hover:underline">
+                        <h3 className="text-xl font-bold text-gray-900 hover:text-blue-700 hover:underline">
                             {truncateWords(blog.title, 4)}
                         </h3>
                     </Link>
-                    <p className="text-sm text-gray-600">{truncateWords(blog.description, 11)}</p>
+                    <p className="text-sm text-gray-500 font-[300]">
+                        {truncateWords(blog.description, 11)}
+                    </p>
                 </div>
                 <div className="flex justify-between mt-6 px-2 items-end">
                     <div className="font-sm">

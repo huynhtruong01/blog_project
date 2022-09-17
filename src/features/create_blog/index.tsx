@@ -26,7 +26,7 @@ export function CreateBlog(props: CreateBlogProps) {
 
     useEffect(() => {
         window.scrollTo(0, 0)
-    })
+    }, [])
 
     const initValues: BlogData = {
         title: '',
@@ -86,8 +86,8 @@ export function CreateBlog(props: CreateBlogProps) {
             <div className="mt-6">
                 <CreateAndEditBlogForm onSubmit={handleSubmit} initValues={initValues} />
             </div>
-            <ToastContainer />
             <ModalLoading open={open} setOpen={setOpen} />
+            <ToastContainer />
         </section>
     )
 }

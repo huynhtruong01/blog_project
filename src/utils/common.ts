@@ -16,6 +16,7 @@ export const formatUppercaseFirstText = (txt: string) => {
 }
 
 export const truncate = (txt: string, maximumText: number) => {
+    if (txt?.length <= maximumText) return txt
     return `${txt.slice(0, maximumText)}\u2026`
 }
 

@@ -30,7 +30,7 @@ export function BlogHomeList({ blogList }: BlogHomeListProps) {
                             <h2 className="text-2xl font-bold mb-1 text-gray-900 hover:text-blue-700 hover:underline">
                                 <Link to={`/blogs/${blogList[0]._id}`}>{blogList[0].title}</Link>
                             </h2>
-                            <p className="text-sm text-gray-500 font-medium">
+                            <p className="text-sm text-gray-500 font-[400]">
                                 {blogList[0].description}
                             </p>
                         </div>

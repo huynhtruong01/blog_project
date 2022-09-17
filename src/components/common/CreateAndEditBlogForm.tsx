@@ -1,15 +1,12 @@
-import { Modal } from '@/components/common'
-import { EditField } from '@/components/field_controls'
-import { BlogTextField } from '@/features/create_blog/components/BlogTextField'
-import { ThumbnailField } from '@/features/create_blog/components/ThumbnailField'
-import { BlogData } from '@/utils/interface'
+import { EditField, ThumbnailField } from '@/components/field_controls'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useQueryClient } from '@tanstack/react-query'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { AiFillDelete } from 'react-icons/ai'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as yup from 'yup'
+import { BlogTextField } from './BlogTextField'
 
 export interface CreateAndEditBlogFormProps {
     onSubmit: ((values?: any) => Promise<void>) | null
@@ -17,7 +14,6 @@ export interface CreateAndEditBlogFormProps {
 }
 
 export function CreateAndEditBlogForm({ onSubmit, initValues }: CreateAndEditBlogFormProps) {
-    const [open, setOpen] = useState<boolean>(false)
     const queryClient = useQueryClient()
     const { id }: any = useParams()
 
@@ -33,13 +29,14 @@ export function CreateAndEditBlogForm({ onSubmit, initValues }: CreateAndEditBlo
             .mixed()
             .required('Vui lòng chọn ảnh bìa cho bài viết.')
             .test('valid-size-image', 'Ảnh bìa không quá 3MB', (value: any): any => {
-                console.log(value)
+                if (typeof value === 'string') return true
                 return value?.size <= 3 * 1024 * 1024
             })
             .test(
                 'valid-type-image',
                 'Vui lòng chọn đúng loại ảnh (.png, .jpeg, .jpg)',
                 (value: any): any => {
+                    if (typeof value === 'string') return true
                     const typeImageList = ['image/png', 'image/jpeg', 'image/jpg']
                     return typeImageList.includes(value?.type)
                 }
@@ -59,6 +56,7 @@ export function CreateAndEditBlogForm({ onSubmit, initValues }: CreateAndEditBlo
     })
 
     const handleSubmit = async (values: any) => {
+        // console.log(values)
         if (!onSubmit) return
 
         try {
@@ -81,27 +79,34 @@ export function CreateAndEditBlogForm({ onSubmit, initValues }: CreateAndEditBlo
         category: `-- Chọn thể loại --`,
     }
 
-    const handleShowModal = () => {
-        queryClient.setQueryData(['data-modal'], {
-            title: 'Hủy bỏ bài viết?',
-            message: 'Ảnh và tất cả dữ liệu của bài viết sẽ bị hủy',
-            btnMain: 'Hủy bài viết',
-            btnCancel: 'Tiếp tục chỉnh sửa',
-        })
-        queryClient.invalidateQueries(['data-modal'])
-        setOpen(true)
-    }
-
     const handleCancelBlog = () => {
         // console.log(form.reset)
         if (id) {
             const keyList = ['title', 'thumbnail', 'category', 'description', 'content']
             Object.keys(initValues)
-                .filter((x: any) => keyList.includes(x))
+                .filter((x: string) => keyList.includes(x))
                 .forEach((x: any) => form.setValue(x, initValues[x]))
         } else {
             form.reset()
         }
+
+        window.scrollTo(0, 0)
+    }
+
+    const handleShowModal = () => {
+        queryClient.setQueryData(['data-modal'], {
+            title: 'Hủy bỏ bài viết?',
+            message: 'Ảnh và tất cả dữ liệu của bài viết sẽ bị hủy?',
+            icon: AiFillDelete,
+            callback: handleCancelBlog,
+            toastTitle: 'Hủy bỏ bài viết thành công',
+            btnCancel: 'Hủy bỏ bài viết',
+            btnContinue: 'Tiếp tục chỉnh sửa',
+        })
+        queryClient.setQueryData(['show-modal-delete'], true)
+        queryClient.invalidateQueries({
+            queryKey: ['show-modal-delete', 'data-modal'],
+        })
     }
 
     return (
@@ -154,7 +159,6 @@ export function CreateAndEditBlogForm({ onSubmit, initValues }: CreateAndEditBlo
                     <span>{id ? 'Cập nhập bài viết' : 'Tạo bài viết'}</span>
                 </button>
             </div>
-            <Modal open={open} setOpen={setOpen} callback={handleCancelBlog} />
         </form>
     )
 }

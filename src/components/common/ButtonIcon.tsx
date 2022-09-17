@@ -13,7 +13,7 @@ export function ButtonIcon({
     name,
     icon,
     fullWidth = false,
-    fontSize = 'sm',
+    fontSize = 'base',
     colorBg = 'blue',
     callback = null,
 }: ButtonIconProps) {

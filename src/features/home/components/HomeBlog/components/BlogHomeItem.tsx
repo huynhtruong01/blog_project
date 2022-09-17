@@ -17,7 +17,7 @@ export function BlogHomeItem({ blog }: BlogHomeItemProps) {
 
             <div className="flex-1">
                 <div className="mb-1">
-                    <span className="text-xs text-gray-400 font-medium">
+                    <span className="text-xs text-gray-400">
                         {dayjs(blog.createdAt).format('DD/MM/YYYY')}
                     </span>
                 </div>

@@ -37,7 +37,7 @@ export interface InformationAccountData {
     fullname: string
     username: string
     detail: string
-    website: Array<string>
+    website: string[]
     avatar: string
     email: string
 }

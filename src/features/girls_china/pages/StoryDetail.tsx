@@ -18,7 +18,11 @@ export function StoryDetail(props: StoryDetailProps) {
         cacheTime: 0,
     })
 
-    // console.log(data)
+    useEffect(() => {
+        if (data) {
+            document.title = `${data?.title} | H.Blog`
+        }
+    }, [data])
 
     const content = DOMPurify.sanitize(data?.content || '')
 

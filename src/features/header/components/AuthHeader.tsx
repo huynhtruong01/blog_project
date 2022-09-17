@@ -5,7 +5,6 @@ import { AiFillLike } from 'react-icons/ai'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 import { FaUser } from 'react-icons/fa'
 import { GoPlus } from 'react-icons/go'
-import { IoLogOut, IoLogOutSharp } from 'react-icons/io5'
 import { RiLogoutBoxRLine } from 'react-icons/ri'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -95,7 +94,7 @@ export function AuthHeader(props: AuthHeaderProps) {
         setOpen((prev: boolean) => !prev)
     }
 
-    console.log(data)
+    // console.log(data)
 
     return (
         <>

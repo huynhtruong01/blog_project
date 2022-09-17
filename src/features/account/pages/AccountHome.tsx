@@ -10,6 +10,7 @@ export function AccountHome(props: AccountHomeProps) {
 
     useEffect(() => {
         window.document.title = 'Thông tin cá nhân | H.Blog'
+        window.scrollTo(0, 0)
     }, [])
 
     const { data, isLoading }: any = useQuery(

@@ -9,4 +9,7 @@ export const useInitGlobalState = () => {
 
     // data delete
     queryClient.setQueryData(['data-modal'], null)
+
+    // modal
+    queryClient.setQueryData(['show-modal-delete'], false)
 }

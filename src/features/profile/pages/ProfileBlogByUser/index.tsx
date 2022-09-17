@@ -17,7 +17,7 @@ export function ProfileBlogByUser({ user }: ProfileBlogByUserProps) {
 
         return {
             ...params,
-            limit: Number.parseInt(params.limit) || 10,
+            limit: Number.parseInt(params.limit) || 100,
             page: Number.parseInt(params.page) || 1,
         }
     }, [location.search])

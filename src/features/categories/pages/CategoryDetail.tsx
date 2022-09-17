@@ -1,8 +1,9 @@
 import { LoadingSpinner, TabList } from '@/components/common'
+import { formatUppercaseFirstText } from '@/utils/common'
 import { fetchCategoryById } from '@/utils/fetch_api'
 import { Tab } from '@/utils/interface'
 import { useQuery } from '@tanstack/react-query'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { FaListAlt } from 'react-icons/fa'
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi'
 import { MdDescription } from 'react-icons/md'
@@ -19,6 +20,12 @@ export function CategoryDetail(props: CategoryDetailProps) {
         [{ type: 'category-id-detail', id }],
         fetchCategoryById
     )
+
+    useEffect(() => {
+        if (data) {
+            document.title = `${formatUppercaseFirstText(data?.name)} | H.Blog`
+        }
+    }, [data])
 
     const tabList: Tab[] = useMemo(
         () => [

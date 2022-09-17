@@ -23,29 +23,29 @@ export function InformationMain({ user }: InformationMainProps) {
             <div className="px-6 py-3">
                 <div className="mb-8">
                     <div className="mb-4">
-                        <p className="text-gray-400">Tên đầy đủ của bạn</p>
-                        <p className="font-medium text-gray-700">
+                        <p className="text-gray-400 text-sm">Tên đầy đủ của bạn</p>
+                        <p className="font-semibold text-gray-700">
                             {formatCapitalMultiText(user?.fullname)}
                         </p>
                     </div>
                     <div className="mb-4">
-                        <p className="text-gray-400">Tên tài khoản của bạn</p>
-                        <p className="font-medium text-gray-700">{user.username}</p>
+                        <p className="text-gray-400 text-sm">Tên tài khoản của bạn</p>
+                        <p className="font-semibold text-gray-700">{user.username}</p>
                     </div>
                     <div className="mb-4">
-                        <p className="text-gray-400">Email</p>
-                        <p className="font-medium text-gray-700">{user.email}</p>
+                        <p className="text-gray-400 text-sm">Email</p>
+                        <p className="font-semibold text-gray-700">{user.email}</p>
                     </div>
                     <div className="mb-4">
-                        <p className="text-gray-400">Mật khẩu</p>
-                        <p className="font-medium text-gray-700 tracking-wider text-xl">
+                        <p className="text-gray-400 text-sm">Mật khẩu</p>
+                        <p className="font-semibold text-gray-700 tracking-wider text-xl">
                             {''.padStart(12, '\u2022')}
                         </p>
                     </div>
                 </div>
                 <div className="flex justify-end">
                     <button
-                        className="flex items-center py-2 px-4 rounded text-white bg-blue-500 font-medium hover:bg-blue-700 ease-in-out duration-200 text-sm"
+                        className="flex items-center py-2 px-4 rounded text-white bg-blue-500 font-medium hover:bg-blue-700 ease-in-out duration-200"
                         onClick={handleOpenModal}
                     >
                         <span className="mr-2">

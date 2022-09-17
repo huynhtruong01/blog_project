@@ -1,6 +1,5 @@
 import { blogsApi, usersApi } from '@/api'
 import { Avatar, SkeletonDetail } from '@/components/common'
-import { truncateWords } from '@/utils/common'
 import { fetchBlogById } from '@/utils/fetch_api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
@@ -53,8 +52,6 @@ export function BlogsDetail(props: BlogsDetailProps) {
             setIsSaveBlog(false)
         }
     }, [isLoading, data])
-
-    console.log('re-render')
 
     const content = DOMPurify.sanitize(data?.content || '')
 
@@ -127,7 +124,7 @@ export function BlogsDetail(props: BlogsDetailProps) {
                         </div>
                         <div className="flex mx-12 justify-between">
                             <div className="flex px-2 items-center">
-                                <div className="mr-2">
+                                <div className="mr-3">
                                     <Link to={`/profile/${data?.user?._id}`}>
                                         <Avatar
                                             imgUrl={data?.user?.avatar}
@@ -138,11 +135,11 @@ export function BlogsDetail(props: BlogsDetailProps) {
                                 </div>
                                 <div>
                                     <Link to={`/profile/${data?.user?._id}`}>
-                                        <span className="text-blue-500 leading-none text-xl font-medium hover:text-blue-700 hover:underline">
+                                        <span className="text-gray-900 leading-none text-xl font-bold hover:text-blue-700 hover:underline">
                                             {data?.user?.username}
                                         </span>
                                     </Link>
-                                    <div className="text-sm leading-none text-gray-300">
+                                    <div className="text-sm leading-none text-gray-500">
                                         {data?.user?.fullname}
                                     </div>
                                 </div>

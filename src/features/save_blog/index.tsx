@@ -19,6 +19,7 @@ export function SaveBlog(props: SaveBlogProps) {
 
     useEffect(() => {
         window.document.title = 'Các bài viết đã lưu | H.Blog'
+        window.scrollTo(0, 0)
     }, [])
 
     useEffect(() => {

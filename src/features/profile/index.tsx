@@ -1,9 +1,9 @@
 import { LoadingSpinner } from '@/components/common'
 import { fetchByIdUser } from '@/utils/fetch_api'
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { ProfileTab } from './components'
+import { ProfileInfo, ProfileTab } from './components'
 import { ProfileBlogByUser, ProfileDetail } from './pages'
 
 export interface ProfileProps {}
@@ -15,36 +15,26 @@ export function Profile(props: ProfileProps) {
         cacheTime: 0,
     })
 
+    useEffect(() => {
+        if (data) {
+            document.title = `${data?.username} | H.Blog`
+        }
+    }, [data])
+
     return (
         <>
             {isLoading && <LoadingSpinner />}
             {data && (
                 <div className="max-w-5xl m-auto bg-white rounded">
                     <div>
-                        <div>
-                            <div className="h-[380px]">
-                                <img
-                                    src="https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ"
-                                    alt=""
-                                    className="rounded"
-                                />
-                            </div>
+                        <div className="h-[380px]">
+                            <img
+                                src="https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ"
+                                alt=""
+                                className="rounded"
+                            />
                         </div>
-                        <div className="flex px-14">
-                            <div className="translate-y-[-50%] w-[158px] h-[158px] overflow-hidden mr-3 p-1.5 bg-white rounded-full">
-                                <img
-                                    src={data?.avatar}
-                                    alt={data?.fullname}
-                                    className="rounded-full"
-                                />
-                            </div>
-                            <div className="py-1">
-                                <h4 className="font-bold text-3xl text-gray-900 mb-1">
-                                    {data?.username}
-                                </h4>
-                                <p className="text-sm text-gray-400">{data?.fullname}</p>
-                            </div>
-                        </div>
+                        <ProfileInfo profile={data} />
                     </div>
                     <div>
                         <ProfileTab activeTab={activeTab} setActiveTab={setActiveTab} />
