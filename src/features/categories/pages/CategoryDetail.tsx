@@ -25,6 +25,7 @@ export function CategoryDetail(props: CategoryDetailProps) {
         if (data) {
             document.title = `${formatUppercaseFirstText(data?.name)} | H.Blog`
         }
+        window.scrollTo(0, 0)
     }, [data])
 
     const tabList: Tab[] = useMemo(

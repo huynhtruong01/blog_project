@@ -51,14 +51,6 @@ export function AuthHeader(props: AuthHeaderProps) {
             link: '/save-blog',
         },
         {
-            icon: AiFillLike,
-            name: 'Các bài viết đã thích',
-            onClick: () => {
-                setOpen(false)
-            },
-            link: '/likes-blog',
-        },
-        {
             icon: RiLogoutBoxRLine,
             name: 'Đăng xuất',
             onClick: handleLogout,

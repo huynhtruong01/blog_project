@@ -3,6 +3,7 @@ import { ButtonIcon } from '@/components/common'
 import { truncate } from '@/utils/common'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
+import { AiFillDelete } from 'react-icons/ai'
 import { IoAdd, IoCloseSharp } from 'react-icons/io5'
 import { InputAddField } from './InputAddField'
 
@@ -71,14 +72,19 @@ export function InformationWebsite({
             websiteUrl: value,
         }
 
-        console.log(user?._id)
+        // console.log(user?._id)
 
         queryClient.setQueryData(['data-modal'], {
             message: 'Bạn có chắc chắn muốn xóa website này không?',
             values: newValues,
             title: 'Xóa website',
+            icon: AiFillDelete,
+            callback: handleRemoveWebsite,
         })
-        queryClient.invalidateQueries(['data-modal'])
+        queryClient.setQueryData(['show-modal-delete'], true)
+        queryClient.invalidateQueries({
+            queryKey: ['data-modal', 'show-modal-delete'],
+        })
     }
 
     return (
